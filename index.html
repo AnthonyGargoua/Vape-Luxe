@@ -3,238 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VAPE LUXE | Premium Experience</title>
+    <title>VAPE LUXE | Premium Shop</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #f0f5f2; --text: #1a2b26; --accent: #00d2ff;
             --card-bg: rgba(255, 255, 255, 0.8); --glass: blur(15px);
             --grad: linear-gradient(135deg, #00d2ff 0%, #3aef9b 100%);
-            --border: rgba(0, 0, 0, 0.08);
+            --border: rgba(0, 0, 0, 0.1);
         }
         .dark-mode {
             --bg: #05010a; --text: #ffffff; --accent: #ff007a;
-            --card-bg: rgba(20, 10, 30, 0.5);
-            --grad: linear-gradient(135deg, #7000ff 0%, #ff007a 50%, #ff4d4d 100%);
+            --card-bg: rgba(20, 10, 30, 0.6);
+            --grad: linear-gradient(135deg, #7000ff 0%, #ff007a 100%);
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: background 0.4s; }
-        body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; transition: background 0.3s; }
 
         /* NAV */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; position: fixed; width: 100%; z-index: 1000; background: rgba(255,255,255,0.05); backdrop-filter: var(--glass); border-bottom: 1px solid var(--border); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; position: fixed; width: 100%; z-index: 1000; background: rgba(255,255,255,0.01); backdrop-filter: var(--glass); border-bottom: 1px solid var(--border); }
         .logo { font-size: 1.8rem; font-weight: 700; text-decoration: none; color: var(--text); }
         .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-btns { display: flex; align-items: center; gap: 15px; }
-        .btn-cart { background: var(--grad); border: none; padding: 10px 18px; border-radius: 12px; font-weight: 700; color: white; cursor: pointer; }
+        .btn-cart { background: var(--grad); border: none; padding: 10px 20px; border-radius: 12px; color: white; font-weight: 700; cursor: pointer; }
 
-        /* HERO & 3D */
-        .hero { height: 100vh; display: flex; align-items: center; padding: 0 10%; position: relative; overflow: hidden; }
-        .hero-bg-banner { position: absolute; top: 0; right: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?q=80&w=1600') center/cover; opacity: 0.1; z-index: 1; pointer-events: none; }
-        #canvas-box { position: absolute; right: 5%; width: 50%; height: 80%; z-index: 5; pointer-events: none; }
+        /* HERO & 3D BOX */
+        .hero { height: 100vh; display: flex; align-items: center; padding: 0 10%; position: relative; }
+        .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?q=80&w=1600') center/cover; opacity: 0.1; z-index: 1; }
+        #canvas-box { position: absolute; right: 0; width: 50%; height: 100%; z-index: 5; }
         .hero-content { z-index: 10; max-width: 600px; }
+        .hero-content h1 { font-size: 5rem; line-height: 1; margin-bottom: 20px; }
 
-        /* SECTION E-LIQUIDE AVEC FLACON VISIBLE */
-        .liquide-section { position: relative; padding: 100px 10%; min-height: 90vh; display: flex; align-items: center; }
-        #canvas-liquid { position: absolute; left: 0; width: 100%; height: 100%; z-index: 2; opacity: 0.8; pointer-events: none; }
-        .liquide-content { position: relative; z-index: 10; width: 100%; }
+        /* SECTION LIQUIDE & 3D FLACON */
+        .liquide-zone { position: relative; padding: 100px 10%; min-height: 80vh; display: flex; align-items: center; background: var(--card-bg); margin: 50px 0; border-radius: 50px; }
+        #canvas-liquid { position: absolute; left: 0; width: 50%; height: 100%; z-index: 5; }
+        .liq-text { margin-left: auto; width: 45%; z-index: 10; }
 
-        /* CART & CHECKOUT */
-        .cart-sidebar { position: fixed; right: -100%; top: 0; width: 400px; height: 100%; background: var(--bg); border-left: 1px solid var(--border); z-index: 2000; padding: 40px; transition: 0.5s; }
-        .cart-sidebar.open { right: 0; }
-        .checkout-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-        .checkout-content { background: var(--bg); padding: 40px; border-radius: 30px; width: 450px; border: 1px solid var(--accent); }
-        .checkout-content input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); }
+        /* BOUTIQUE */
+        .shop { padding: 100px 10%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+        .card { background: var(--card-bg); padding: 25px; border-radius: 30px; border: 1px solid var(--border); text-align: center; backdrop-filter: var(--glass); }
+        .card img { width: 100%; border-radius: 20px; margin-bottom: 15px; }
+        .price { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-        .card { background: var(--card-bg); border-radius: 24px; padding: 20px; border: 1px solid var(--border); backdrop-filter: var(--glass); text-align: center; }
-        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 18px; }
-        .main-btn { padding: 15px 40px; border-radius: 50px; border: none; background: var(--grad); color: white; font-weight: 700; cursor: pointer; text-transform: uppercase; }
-        .age-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; }
-        .age-gate.hidden { display: none; }
+        /* PANIER & PAIEMENT */
+        .cart-side { position: fixed; right: -100%; top: 0; width: 400px; height: 100%; background: var(--bg); z-index: 2000; padding: 40px; transition: 0.5s; border-left: 1px solid var(--border); }
+        .cart-side.open { right: 0; }
+        .checkout-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        .checkout-box { background: var(--bg); padding: 40px; border-radius: 30px; width: 450px; border: 1px solid var(--accent); }
+        .checkout-box input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border); background: transparent; color: var(--text); }
+
+        .main-btn { padding: 15px 35px; border-radius: 50px; border: none; background: var(--grad); color: white; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+        .age-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; text-align: center; }
     </style>
 </head>
 <body>
 
     <div id="age-gate" class="age-gate">
-        <div style="text-align:center;">
-            <h1>VAPE<span>LUXE</span></h1>
-            <button class="main-btn" onclick="verifyAge()" style="margin-top: 20px;">ENTRER (+18 ANS)</button>
+        <div>
+            <h1 style="font-size: 4rem;">VAPE<span>LUXE</span></h1>
+            <p style="margin: 20px 0;">🔞 ACCÈS RÉSERVÉ AUX MAJEURS</p>
+            <button class="main-btn" onclick="verifyAge()">ENTRER SUR LE SITE</button>
         </div>
     </div>
 
     <div id="checkout-modal" class="checkout-modal">
-        <div class="checkout-content">
-            <h2 style="margin-bottom: 20px;">PAIEMENT SÉCURISÉ 🔒</h2>
-            <div style="background: rgba(255,204,0,0.1); padding: 10px; border-radius: 8px; margin-bottom: 15px; color: #ccaa00; font-size: 0.8rem;">⚠️ MODE TEST : NE PAS SAISIR DE VRAIES COORDONNÉES</div>
+        <div class="checkout-box">
+            <h2>PAIEMENT SÉCURISÉ</h2>
+            <p style="font-size: 0.8rem; color: var(--accent); margin-bottom: 20px;">SIMULATION DE PAIEMENT - MODE TEST</p>
             <input type="text" placeholder="Nom complet">
-            <input type="text" placeholder="N° de Carte (16 chiffres)">
-            <div style="display:flex; gap:10px;">
-                <input type="text" placeholder="MM/AA">
-                <input type="text" placeholder="CVC">
-            </div>
-            <p style="margin: 20px 0; font-size: 1.2rem; font-weight: 700;">Total: <span id="checkout-total">0€</span></p>
-            <button class="main-btn" style="width: 100%;" onclick="processPayment()">CONFIRMER LA COMMANDE</button>
-            <button onclick="closeCheckout()" style="width:100%; background:none; border:none; margin-top:15px; cursor:pointer; color:var(--text); opacity:0.5;">Annuler</button>
+            <input type="text" placeholder="Numéro de carte (16 chiffres)">
+            <div style="display:flex; gap:10px;"><input type="text" placeholder="MM/AA"> <input type="text" placeholder="CVC"></div>
+            <h3 style="margin: 20px 0;">Total : <span id="check-total">0€</span></h3>
+            <button class="main-btn" style="width:100%" onclick="processPay()">PAYER MAINTENANT</button>
+            <button onclick="closeCheck()" style="width:100%; background:none; border:none; margin-top:10px; color:var(--text); cursor:pointer; opacity:0.5;">Annuler</button>
         </div>
     </div>
 
     <nav>
         <a href="#" class="logo">VAPE<span>LUXE</span></a>
-        <div class="nav-btns">
-            <button onclick="toggleTheme()" style="background:none; border:none; cursor:pointer; font-size:1.2rem;" id="theme-icon">☀️</button>
-            <div class="btn-cart" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+        <div style="display:flex; gap:20px; align-items:center;">
+            <button onclick="toggleTheme()" style="background:none; border:none; cursor:pointer; font-size:1.5rem;" id="t-icon">☀️</button>
+            <div class="btn-cart" onclick="toggleCart()">🛒 <span id="count">0</span></div>
         </div>
     </nav>
 
-    <section class="hero" id="home">
-        <div class="hero-bg-banner"></div>
+    <section class="hero">
+        <div class="hero-bg"></div>
         <div class="hero-content">
-            <h1>Box Semi-Meca<br><span>Full Power</span></h1>
-            <p>L'excellence de la vape artisanale et puissante.</p><br>
-            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Shop Hardware</button>
+            <h1>BOX MECA<span>.</span><br>PUISSANCE </h1>
+            <p>Le mod semi-méca ultime pour les experts.</p><br>
+            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Découvrir</button>
         </div>
-        <div id="canvas-box"></div> </section>
+        <div id="canvas-box"></div>
+    </section>
 
-    <section class="products" id="shop">
-        <h2>Hardware ⚡</h2>
+    <section class="shop" id="shop">
+        <h2>HARDWARE ⚡</h2>
         <div class="grid">
             <div class="card">
                 <img src="https://www.gfc-provap.com/143533-thickbox/mod-blaster-2170018650-bd-vape.jpg">
                 <h3>Mod Blaster</h3><p class="price">50€</p>
-                <button class="btn-add" onclick="addToCart('Mod Blaster', 50)" style="width:100%; padding:10px; cursor:pointer;">Ajouter 🛒</button>
+                <button class="main-btn" style="width:100%; margin-top:15px;" onclick="add('Mod Blaster', 50)">Ajouter 🛒</button>
             </div>
         </div>
     </section>
 
-    <section class="liquide-section" id="liquides">
-        <div id="canvas-liquid"></div> <div class="liquide-content">
-            <h2 style="font-size: 3rem;">Nos Saveurs 🍓</h2>
-            <div class="grid">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600">
-                    <h3>ICE BERRY 🧊</h3><p class="price">15€</p>
-                    <button class="btn-add" onclick="addToCart('Ice Berry', 15)" style="width:100%; padding:10px; cursor:pointer;">Ajouter 🛒</button>
-                </div>
+    <section class="liquide-zone">
+        <div id="canvas-liquid"></div>
+        <div class="liq-text">
+            <h2 style="font-size: 3rem;">SAVEURS<span>.</span><br>INTENSES</h2>
+            <p>Des e-liquides premium pour une vape onctueuse.</p><br>
+            <div class="card" style="max-width: 300px;">
+                <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600">
+                <h3>Ice Berry</h3><p class="price">15€</p>
+                <button class="main-btn" style="width:100%; margin-top:15px;" onclick="add('Ice Berry', 15)">Ajouter 🛒</button>
             </div>
         </div>
     </section>
 
-    <div id="cart-sidebar" class="cart-sidebar">
-        <h2>VOTRE PANIER</h2>
-        <div id="cart-items" style="margin-top: 30px;"></div>
-        <div style="position: absolute; bottom: 40px; left: 40px; right: 40px;">
-            <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:700;">
-                <span>Total</span><span id="cart-total">0€</span>
-            </div>
-            <button class="main-btn" style="width: 100%; margin-top: 20px;" onclick="openCheckout()">COMMANDER</button>
-            <button onclick="toggleCart()" style="width:100%; background:none; border:none; margin-top:10px; cursor:pointer; color:var(--text);">Fermer</button>
+    <div id="cart-side" class="cart-side">
+        <h2>PANIER</h2>
+        <div id="cart-items" style="margin: 30px 0;"></div>
+        <div style="position:absolute; bottom:40px; left:40px; right:40px;">
+            <h3 style="display:flex; justify-content:space-between;">Total <span id="cart-total">0€</span></h3>
+            <button class="main-btn" style="width:100%; margin-top:20px;" onclick="openCheck()">COMMANDER</button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         let cart = [];
-        let matGlobal;
+        let matBox, matLiq;
 
-        function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); }
-        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
+        function verifyAge() { document.getElementById('age-gate').style.display='none'; init3D(); }
+        function toggleCart() { document.getElementById('cart-side').classList.toggle('open'); }
+        
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
-            document.getElementById('theme-icon').innerText = isDark ? "🌙" : "☀️";
-            if(matGlobal) matGlobal.color.set(isDark ? 0xff007a : 0x00d2ff);
+            document.getElementById('t-icon').innerText = isDark ? "🌙" : "☀️";
+            const col = isDark ? 0xff007a : 0x00d2ff;
+            if(matBox) matBox.color.set(col);
+            if(matLiq) matLiq.color.set(col);
         }
 
-        // --- 3D ENGINE ---
-        let sceneBox, camBox, rendBox, groupBox, sceneLiq, camLiq, rendLiq, groupLiq;
+        // --- MOTEUR 3D ---
+        let sceneB, camB, rendB, groupB, sceneL, camL, rendL, groupL;
 
         function init3D() {
-            // 1. LA BOX SEMI-MECA (ACCUEIL)
-            const cBox = document.getElementById('canvas-box');
-            sceneBox = new THREE.Scene();
-            camBox = new THREE.PerspectiveCamera(75, cBox.offsetWidth/cBox.offsetHeight, 0.1, 1000);
-            rendBox = new THREE.WebGLRenderer({antialias:true, alpha:true});
-            rendBox.setSize(cBox.offsetWidth, cBox.offsetHeight);
-            cBox.appendChild(rendBox.domElement);
+            // 1. LA BOX (ACCUEIL)
+            const cB = document.getElementById('canvas-box');
+            sceneB = new THREE.Scene();
+            camB = new THREE.PerspectiveCamera(75, cB.offsetWidth/cB.offsetHeight, 0.1, 1000);
+            rendB = new THREE.WebGLRenderer({antialias:true, alpha:true});
+            rendB.setSize(cB.offsetWidth, cB.offsetHeight);
+            cB.appendChild(rendB.domElement);
 
-            matGlobal = new THREE.MeshPhongMaterial({color: 0x00d2ff, shininess: 100});
-            groupBox = new THREE.Group();
-
-            // Construction de la Box (Rectangulaire massive)
-            const body = new THREE.Mesh(new THREE.BoxGeometry(2.2, 3.8, 1.4), matGlobal);
-            const ato = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 1.4, 32), new THREE.MeshPhongMaterial({color:0x444444}));
-            ato.position.y = 2.4;
-            const switchBtn = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.2, 32), new THREE.MeshPhongMaterial({color:0xffffff}));
-            switchBtn.rotation.z = Math.PI/2; switchBtn.position.set(1.1, 1.2, 0);
-
-            groupBox.add(body, ato, switchBtn);
-            sceneBox.add(groupBox);
-            sceneBox.add(new THREE.PointLight(0xffffff, 2).set(5,5,5), new THREE.AmbientLight(0xffffff, 0.5));
-            camBox.position.z = 7;
-
-            // 2. LE FLACON (PAGE LIQUIDE)
-            const cLiq = document.getElementById('canvas-liquid');
-            sceneLiq = new THREE.Scene();
-            camLiq = new THREE.PerspectiveCamera(75, cLiq.offsetWidth/cLiq.offsetHeight, 0.1, 1000);
-            rendLiq = new THREE.WebGLRenderer({antialias:true, alpha:true});
-            rendLiq.setSize(cLiq.offsetWidth, cLiq.offsetHeight);
-            cLiq.appendChild(rendLiq.domElement);
-
-            groupLiq = new THREE.Group();
-            const flacon = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 5, 32), matGlobal);
-            const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.5, 1.5, 32), new THREE.MeshPhongMaterial({color:0x222222}));
-            cap.position.y = 3;
+            matBox = new THREE.MeshPhongMaterial({color: 0x00d2ff, shininess: 100});
+            groupB = new THREE.Group();
             
-            groupLiq.add(flacon, cap);
-            groupLiq.position.x = 2; // Décalé pour ne pas être sous le texte
-            sceneLiq.add(groupLiq);
-            sceneLiq.add(new THREE.PointLight(0xffffff, 2).set(-5,5,5), new THREE.AmbientLight(0xffffff, 0.5));
-            camLiq.position.z = 12;
+            // Corps Box rectangulaire
+            const body = new THREE.Mesh(new THREE.BoxGeometry(2, 3.5, 1.2), matBox);
+            const ato = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 1.2, 32), new THREE.MeshPhongMaterial({color:0x444444}));
+            ato.position.y = 2.3;
+            const btn = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.2, 32), new THREE.MeshPhongMaterial({color:0xffffff}));
+            btn.rotation.z = Math.PI/2; btn.position.set(1, 1, 0);
+            
+            groupB.add(body, ato, btn);
+            sceneB.add(groupB);
+            sceneB.add(new THREE.PointLight(0xffffff, 2).set(5,5,5), new THREE.AmbientLight(0xffffff, 0.5));
+            camB.position.z = 6;
+
+            // 2. LE FLACON (LIQUIDE)
+            const cL = document.getElementById('canvas-liquid');
+            sceneL = new THREE.Scene();
+            camL = new THREE.PerspectiveCamera(75, cL.offsetWidth/cL.offsetHeight, 0.1, 1000);
+            rendL = new THREE.WebGLRenderer({antialias:true, alpha:true});
+            rendL.setSize(cL.offsetWidth, cL.offsetHeight);
+            cL.appendChild(rendL.domElement);
+
+            matLiq = new THREE.MeshPhongMaterial({color: 0x00d2ff, transparent:true, opacity:0.8});
+            groupL = new THREE.Group();
+            const bottle = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.2, 4, 32), matLiq);
+            const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1.2, 1, 32), new THREE.MeshPhongMaterial({color:0x222222}));
+            cap.position.y = 2.5;
+            
+            groupL.add(bottle, cap);
+            sceneL.add(groupL);
+            sceneL.add(new THREE.PointLight(0xffffff, 2).set(-5,5,5), new THREE.AmbientLight(0xffffff, 0.5));
+            camL.position.z = 8;
 
             animate();
         }
 
         function animate() {
             requestAnimationFrame(animate);
-            if(groupBox) { groupBox.rotation.y += 0.01; groupBox.position.y = Math.sin(Date.now()*0.002)*0.2; }
-            if(groupLiq) { groupLiq.rotation.y -= 0.01; groupLiq.rotation.z = 0.1; }
-            rendBox.render(sceneBox, camBox);
-            rendLiq.render(sceneLiq, camLiq);
+            if(groupB) { groupB.rotation.y += 0.01; groupB.position.y = Math.sin(Date.now()*0.002)*0.2; }
+            if(groupL) { groupL.rotation.y -= 0.01; groupL.rotation.x = 0.2; }
+            rendB.render(sceneB, camB);
+            rendL.render(sceneL, camL);
         }
 
-        // --- PANIER & SHOP ---
-        function addToCart(n, p) {
+        // --- LOGIQUE PANIER ---
+        function add(n, p) {
             cart.push({id: Date.now(), n, p});
-            updateCart();
-            toggleCart();
+            update();
+            if(!document.getElementById('cart-side').classList.contains('open')) toggleCart();
         }
-        function removeFromCart(id) {
-            cart = cart.filter(i => i.id !== id);
-            updateCart();
-        }
-        function updateCart() {
+        function remove(id) { cart = cart.filter(i => i.id !== id); update(); }
+        function update() {
             const list = document.getElementById('cart-items');
             list.innerHTML = ""; let t = 0;
             cart.forEach(i => {
                 t += i.p;
-                list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:15px; padding:10px; background:var(--card-bg); border-radius:10px;">
-                    <span>${i.n}</span>
-                    <span>${i.p}€ <button onclick="removeFromCart(${i.id})" style="border:none; background:none; color:red; cursor:pointer; margin-left:10px;">🗑️</button></span>
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; padding:10px; background:var(--card-bg); border-radius:10px;">
+                    <span>${i.n}</span> <span>${i.p}€ <button onclick="remove(${i.id})" style="border:none; background:none; color:red; cursor:pointer;">🗑️</button></span>
                 </div>`;
             });
             document.getElementById('cart-total').innerText = t + "€";
-            document.getElementById('cart-count').innerText = cart.length;
+            document.getElementById('count').innerText = cart.length;
         }
 
-        function openCheckout() {
-            if(cart.length === 0) return alert("Panier vide !");
-            document.getElementById('checkout-total').innerText = document.getElementById('cart-total').innerText;
-            document.getElementById('checkout-modal').style.display = 'flex';
+        function openCheck() { 
+            if(cart.length === 0) return;
+            document.getElementById('check-total').innerText = document.getElementById('cart-total').innerText;
+            document.getElementById('checkout-modal').style.display = 'flex'; 
         }
-        function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
-        function processPayment() { alert("Merci ! Votre commande (simulation) est validée !"); cart=[]; updateCart(); closeCheckout(); toggleCart(); }
+        function closeCheck() { document.getElementById('checkout-modal').style.display = 'none'; }
+        function processPay() { alert("Paiement simulé accepté ! ✅"); cart = []; update(); closeCheck(); toggleCart(); }
+
+        window.onresize = () => {
+            if(rendB) { rendB.setSize(document.getElementById('canvas-box').offsetWidth, document.getElementById('canvas-box').offsetHeight); }
+            if(rendL) { rendL.setSize(document.getElementById('canvas-liquid').offsetWidth, document.getElementById('canvas-liquid').offsetHeight); }
+        };
     </script>
 </body>
 </html>
