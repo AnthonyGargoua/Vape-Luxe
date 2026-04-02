@@ -113,7 +113,7 @@
         
         <ul class="nav-links" id="navLinks">
             <li><a href="#home" onclick="toggleMenu()">ACCUEIL</a></li>
-            <li><a href="#shop" onclick="toggleMenu()">MODS</a></li>
+            <li><a href="#shop" onclick="toggleMenu()">BOUTIQUE</a></li>
             <li><a href="#shop" onclick="toggleMenu()">LIQUIDES</a></li>
             <li><a href="#" onclick="toggleMenu()">DISCORD</a></li>
         </ul>
@@ -129,49 +129,49 @@
         <div class="hero-content">
             <h1>Good<br>Vibes <span>Only</span></h1>
             <p>Le futur de la vape premium avec les meilleures marques mondiales.</p>
-            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Shop Now</button>
+            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Je fume maintenant</button>
         </div>
         <div id="canvas-container"></div>
     </section>
 
     <section class="products" id="shop">
-        <h2 style="font-size: 3rem; margin-bottom: 50px;">NEW <span>DROPS</span> 🔥</h2>
+        <h2 style="font-size: 3rem; margin-bottom: 50px;">Nouveautés 🔥</h2>
         <div class="grid">
             <div class="card">
                 <img src="https://www.gfc-provap.com/143533-thickbox/mod-blaster-2170018650-bd-vape.jpg" alt="Mod">
                 <h3>Mod Blaster BD Vape</h3>
                 <p class="price">50€</p>
-                <button class="btn-add" onclick="addToCart('Mod Blaster', 50)">ADD TO BAG 🛒</button>
+                <button class="btn-add" onclick="addToCart('Mod Blaster', 50)">Ajouter au panier 🛒</button>
             </div>
             <div class="card">
                 <img src="https://www.promovap.com/10492-large_default/dead-rabbit-v3-rta-joker-edition-hellvape.jpg" alt="Vape">
                 <h3>Dead Rabbit 3 - Joker</h3>
                 <p class="price">35€</p>
-                <button class="btn-add" onclick="addToCart('Dead Rabbit', 35)">ADD TO BAG 🛒</button>
+                <button class="btn-add" onclick="addToCart('Dead Rabbit', 35)">Ajouter au panier 🛒</button>
             </div>
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600" alt="Liquid">
                 <h3>ICE BERRY 🧊</h3>
                 <p class="price">15€</p>
-                <button class="btn-add" onclick="addToCart('Ice Berry', 15)">ADD TO BAG 🛒</button>
+                <button class="btn-add" onclick="addToCart('Ice Berry', 15)">Ajouter au panier 🛒</button>
             </div>
         </div>
     </section>
 
     <div id="cart-sidebar" class="cart-sidebar">
-        <h2>VOTRE BAG 🛍️</h2><br>
+        <h2>VOTRE PANIER 🛍️</h2><br>
         <div id="cart-items" style="flex-grow:1;"></div>
         <hr><br>
         <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:700;">
             <span>TOTAL</span><span id="cart-total">0.00€</span>
         </div>
-        <button class="main-btn" style="width:100%; margin-top:20px;">CHECKOUT ✅</button>
+        <button class="main-btn" style="width:100%; margin-top:20px;">Récapitulatif ✅</button>
         <button onclick="toggleCart()" style="margin-top:10px; background:none; border:none; color:var(--text); cursor:pointer; width:100%;">Fermer</button>
     </div>
 
     <footer>
         <div class="footer-content">
-            <div><h3 class="logo">VAPE<span>LUXE</span></h3><p>Next Gen Vape Store 🚀</p></div>
+            <div><h3 class="logo">VAPE<span>LUXE</span></h3><p>Le premier site de référencement vape 🚀</p></div>
             <div>
                 <h4>MENU</h4>
                 <a href="#home" class="footer-link">Accueil</a>
