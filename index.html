@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* MODE CLAIR : BLEU / VERT */
             --bg: #f0f5f2;
             --text: #1a2b26;
             --accent: #00d2ff;
@@ -18,7 +17,6 @@
         }
 
         .dark-mode {
-            /* MODE SOMBRE : VIOLET / ROSE / ROUGE */
             --bg: #05010a;
             --text: #ffffff;
             --accent: #ff007a;
@@ -27,24 +25,20 @@
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: background 0.4s, color 0.4s, border 0.4s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: background 0.4s, color 0.4s; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* NAVIGATION & BURGER */
+        /* NAVIGATION */
         nav { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 15px 5%; position: fixed; width: 100%; z-index: 1000;
             background: rgba(255,255,255,0.05); backdrop-filter: var(--glass);
             border-bottom: 1px solid var(--border);
         }
-        
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.9rem; letter-spacing: 1px; opacity: 0.8; }
-        .nav-links a:hover { opacity: 1; color: var(--accent); }
-
-        .logo { font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; text-decoration: none; color: var(--text); z-index: 1001; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.9rem; opacity: 0.8; }
+        .logo { font-size: 1.8rem; font-weight: 700; text-decoration: none; color: var(--text); z-index: 1001; }
         .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
         .nav-btns { display: flex; align-items: center; gap: 15px; z-index: 1001; }
         .theme-toggle { cursor: pointer; font-size: 1.2rem; background: var(--card-bg); border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; color: var(--text); }
         .btn-cart { background: var(--grad); border: none; padding: 10px 18px; border-radius: 12px; font-weight: 700; color: white; cursor: pointer; display: flex; align-items: center; gap: 8px; }
@@ -53,76 +47,76 @@
         .burger div { width: 28px; height: 3px; background: var(--text); border-radius: 5px; }
 
         @media (max-width: 900px) {
-            .nav-links {
-                position: fixed; right: -100%; top: 0; height: 100vh; width: 80%;
-                background: var(--bg); flex-direction: column; justify-content: center; align-items: center;
-                box-shadow: -10px 0 30px rgba(0,0,0,0.2); z-index: 999; transition: 0.5s;
-            }
+            .nav-links { position: fixed; right: -100%; top: 0; height: 100vh; width: 80%; background: var(--bg); flex-direction: column; justify-content: center; align-items: center; z-index: 999; }
             .nav-links.active { right: 0; }
             .burger { display: flex; z-index: 1001; }
         }
 
         /* SECTIONS */
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: space-between; padding: 0 10%; position: relative; overflow: hidden; }
-        .hero-bg-banner {
-            position: absolute; top: 0; right: 0; width: 60%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1559819614-81fea9efd090?q=80&w=1600') center/cover;
-            mask-image: linear-gradient(to left, black 40%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to left, black 40%, transparent 100%);
-            opacity: 0.15; z-index: 1; pointer-events: none;
-        }
+        .hero { height: 100vh; display: flex; align-items: center; padding: 0 10%; position: relative; overflow: hidden; }
+        .hero-bg-banner { position: absolute; top: 0; right: 0; width: 60%; height: 100%; background: url('https://images.unsplash.com/photo-1559819614-81fea9efd090?q=80&w=1600') center/cover; mask-image: linear-gradient(to left, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to left, black 40%, transparent 100%); opacity: 0.15; z-index: 1; }
         .hero-content { z-index: 10; max-width: 600px; }
-        .hero-content h1 { font-size: clamp(3rem, 10vw, 5.5rem); line-height: 0.9; margin-bottom: 20px; }
-        
-        #canvas-container, #liquid-canvas { position: absolute; right: -5%; width: 60%; height: 100%; cursor: pointer; z-index: 5; }
-        #liquid-section { position: relative; min-height: 80vh; display: flex; align-items: center; padding: 100px 10%; overflow: hidden; }
+        #canvas-container, #liquid-canvas { position: absolute; right: -5%; width: 60%; height: 100%; z-index: 5; }
 
-        /* BOUTONS & PRODUITS */
-        .main-btn { padding: 15px 40px; border-radius: 50px; border: none; background: var(--grad); color: white; font-weight: 700; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .products { padding: 100px 10%; position: relative; z-index: 10; }
+        /* PRODUITS */
+        .products { padding: 100px 10%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .card { background: var(--card-bg); border-radius: 24px; padding: 20px; border: 1px solid var(--border); backdrop-filter: var(--glass); text-align: center; transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .card { background: var(--card-bg); border-radius: 24px; padding: 20px; border: 1px solid var(--border); backdrop-filter: var(--glass); text-align: center; }
         .card img { width: 100%; height: 250px; object-fit: cover; border-radius: 18px; margin-bottom: 20px; }
-        .price { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 15px; }
-        .btn-add { width: 100%; padding: 12px; border-radius: 12px; border: 2px solid var(--accent); background: transparent; color: var(--text); font-weight: 700; cursor: pointer; }
+        .price { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        .btn-add { width: 100%; padding: 12px; border-radius: 12px; border: 2px solid var(--accent); background: transparent; color: var(--text); font-weight: 700; cursor: pointer; margin-top: 15px; }
         .btn-add:hover { background: var(--grad); color: white; border-color: transparent; }
 
-        /* FOOTER & SIDEBAR */
+        /* PANIER & SUPPRESSION */
         .cart-sidebar { position: fixed; right: -100%; top: 0; width: 400px; height: 100%; background: var(--bg); border-left: 1px solid var(--border); z-index: 2000; padding: 40px; transition: 0.5s; }
         .cart-sidebar.open { right: 0; }
-        footer { padding: 80px 10% 40px; background: var(--card-bg); border-top: 1px solid var(--border); border-radius: 50px 50px 0 0; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; }
-        .footer-link { display: block; margin-top: 10px; color: var(--text); text-decoration: none; opacity: 0.6; }
-        .footer-link:hover { opacity: 1; color: var(--accent); }
-        
-        .age-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.8s; }
-        .age-gate.hidden { transform: translateY(-100%); }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 15px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .remove-item { background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 1.2rem; padding: 5px; }
+
+        /* PAGE DE PAIEMENT (MODAL) */
+        .checkout-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        .checkout-content { background: var(--bg); padding: 40px; border-radius: 30px; width: 90%; max-width: 500px; border: 1px solid var(--accent); position: relative; }
+        .checkout-content input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); }
+
+        .main-btn { padding: 15px 40px; border-radius: 50px; border: none; background: var(--grad); color: white; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+        .age-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; }
+        .age-gate.hidden { transform: translateY(-100%); transition: 0.8s; }
     </style>
 </head>
 <body>
 
     <div id="age-gate" class="age-gate">
         <div style="text-align:center;">
-            <h1 style="font-size: 4rem;">VAPE<span>LUXE</span></h1>
-            <p style="margin-bottom: 30px;">ACCÈS RÉSERVÉ AUX MAJEURS 🔞</p>
+            <h1>VAPE<span>LUXE</span></h1>
+            <p style="margin-bottom: 30px;">🔞 ACCÈS RÉSERVÉ AUX MAJEURS</p>
             <button class="main-btn" onclick="verifyAge()">J'AI + DE 18 ANS</button>
         </div>
     </div>
 
-    <nav>
-        <div class="burger" onclick="toggleMenu()">
-            <div></div><div></div><div></div>
+    <div id="checkout-modal" class="checkout-modal">
+        <div class="checkout-content">
+            <h2 style="margin-bottom: 20px;">PAIEMENT SÉCURISÉ 🔒</h2>
+            <p>Total à régler : <span id="checkout-total" style="color: var(--accent); font-weight: 700;">0€</span></p>
+            <input type="text" placeholder="Nom sur la carte">
+            <input type="text" placeholder="Numéro de carte (16 chiffres)">
+            <div style="display: flex; gap: 10px;">
+                <input type="text" placeholder="MM/AA">
+                <input type="text" placeholder="CVC">
+            </div>
+            <button class="main-btn" style="width: 100%; margin-top: 20px;" onclick="processPayment()">PAYER MAINTENANT</button>
+            <button onclick="closeCheckout()" style="background: none; border: none; color: var(--text); cursor: pointer; width: 100%; margin-top: 15px; opacity: 0.5;">Annuler</button>
         </div>
-        <a href="#" class="logo">VAPE<span>LUXE</span></a>
-        
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home" onclick="toggleMenu()">ACCUEIL</a></li>
-            <li><a href="#shop" onclick="toggleMenu()">BOUTIQUE</a></li>
-            <li><a href="#liquides" onclick="toggleMenu()">E-LIQUIDES</a></li>
-            <li><a href="#" onclick="toggleMenu()">DISCORD</a></li>
-        </ul>
+    </div>
 
+    <nav>
+        <div class="burger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+        <a href="#" class="logo">VAPE<span>LUXE</span></a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">ACCUEIL</a></li>
+            <li><a href="#shop">BOUTIQUE</a></li>
+            <li><a href="#liquides">E-LIQUIDES</a></li>
+            <li><a href="#">DISCORD</a></li>
+        </ul>
         <div class="nav-btns">
             <button class="theme-toggle" onclick="toggleTheme()" id="theme-icon">☀️</button>
             <div class="btn-cart" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
@@ -133,108 +127,114 @@
         <div class="hero-bg-banner"></div>
         <div class="hero-content">
             <h1>Good<br>Vibes <span>Only</span></h1>
-            <p>Le futur de la vape premium avec les meilleures marques mondiales.</p><br>
-            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Découvrir</button>
+            <p>Le futur de la vape premium est ici.</p><br>
+            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Shop now</button>
         </div>
         <div id="canvas-container"></div>
     </section>
 
     <section class="products" id="shop">
-        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Hardware <span>Premium</span> ⚡</h2>
+        <h2 style="margin-bottom: 40px;">Hardware ⚡</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://www.gfc-provap.com/143533-thickbox/mod-blaster-2170018650-bd-vape.jpg" alt="Mod">
+                <img src="https://www.gfc-provap.com/143533-thickbox/mod-blaster-2170018650-bd-vape.jpg">
                 <h3>Mod Blaster BD Vape</h3>
                 <p class="price">50€</p>
                 <button class="btn-add" onclick="addToCart('Mod Blaster', 50)">Ajouter 🛒</button>
             </div>
             <div class="card">
-                <img src="https://www.promovap.com/10492-large_default/dead-rabbit-v3-rta-joker-edition-hellvape.jpg" alt="Vape">
-                <h3>Dead Rabbit 3 - Joker</h3>
+                <img src="https://www.promovap.com/10492-large_default/dead-rabbit-v3-rta-joker-edition-hellvape.jpg">
+                <h3>Dead Rabbit 3</h3>
                 <p class="price">35€</p>
                 <button class="btn-add" onclick="addToCart('Dead Rabbit', 35)">Ajouter 🛒</button>
             </div>
         </div>
     </section>
 
-    <section id="liquides" style="background: var(--card-bg); padding-bottom: 100px;">
-        <div id="liquid-section">
-            <div class="hero-content" style="z-index: 10; position: relative;">
-                <h2 style="font-size: 3rem;">Saveurs <span>Infinites</span> 🍓</h2>
-                <p>Des mélanges uniques créés par les meilleurs juice-makers du monde.</p>
-            </div>
-            <div id="liquid-canvas"></div>
-        </div>
-        <div class="products">
-            <div class="grid">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600" alt="Liquid">
-                    <h3>ICE BERRY 🧊</h3>
-                    <p class="price">15€</p>
-                    <button class="btn-add" onclick="addToCart('Ice Berry', 15)">Ajouter 🛒</button>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1550184649-651586548545?q=80&w=600" alt="Liquid">
-                    <h3>MANGO DREAM 🥭</h3>
-                    <p class="price">18€</p>
-                    <button class="btn-add" onclick="addToCart('Mango Dream', 18)">Ajouter 🛒</button>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1589135401672-031e42761836?q=80&w=600" alt="Liquid">
-                    <h3>TOBACCO GOLD 🍂</h3>
-                    <p class="price">12€</p>
-                    <button class="btn-add" onclick="addToCart('Tobacco Gold', 12)">Ajouter 🛒</button>
-                </div>
+    <section id="liquides" style="background: var(--card-bg); padding: 100px 10%;">
+        <h2>Saveurs 🍓</h2>
+        <div class="grid" style="margin-top: 40px;">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600">
+                <h3>ICE BERRY 🧊</h3>
+                <p class="price">15€</p>
+                <button class="btn-add" onclick="addToCart('Ice Berry', 15)">Ajouter 🛒</button>
             </div>
         </div>
     </section>
 
     <div id="cart-sidebar" class="cart-sidebar">
-        <h2 style="margin-bottom: 30px;">VOTRE PANIER 🛍️</h2>
+        <h2 style="margin-bottom: 30px;">PANIER 🛍️</h2>
         <div id="cart-items" style="max-height: 60vh; overflow-y: auto;"></div>
         <div style="position: absolute; bottom: 40px; left: 40px; right: 40px;">
-            <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:700; border-top: 1px solid var(--border); padding-top: 20px;">
+            <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:700;">
                 <span>TOTAL</span><span id="cart-total">0.00€</span>
             </div>
-            <button class="main-btn" style="width:100%; margin-top:20px;">COMMANDER ✅</button>
-            <button onclick="toggleCart()" style="margin-top:15px; background:none; border:none; color:var(--text); cursor:pointer; width:100%; opacity: 0.5;">Fermer le panier</button>
+            <button class="main-btn" style="width:100%; margin-top:20px;" onclick="openCheckout()">COMMANDER ✅</button>
+            <button onclick="toggleCart()" style="width: 100%; margin-top: 10px; background: none; border: none; cursor: pointer;">Fermer</button>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-content">
-            <div><h3 class="logo">VAPE<span>LUXE</span></h3><p>Le futur de la vape 🚀</p></div>
-            <div>
-                <h4>MENU</h4>
-                <a href="#home" class="footer-link">Accueil</a>
-                <a href="#shop" class="footer-link">Boutique</a>
-                <a href="#liquides" class="footer-link">E-Liquides</a>
-            </div>
-            <div>
-                <h4>SOCIAL</h4>
-                <a href="#" class="footer-link">Instagram</a>
-                <a href="#" class="footer-link">Discord</a>
-            </div>
-        </div>
-    </footer>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- LOGIQUE UI ---
+        let cart = [];
+
         function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
-        function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); initLiquid3D(); }
+        function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); }
+
+        // GESTION DU PANIER
+        function addToCart(n, p) {
+            cart.push({id: Date.now(), n, p});
+            updateCart();
+            if(!document.getElementById('cart-sidebar').classList.contains('open')) toggleCart();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        function updateCart() {
+            const items = document.getElementById('cart-items');
+            items.innerHTML = ""; let t = 0;
+            cart.forEach(i => {
+                t += i.p;
+                items.innerHTML += `
+                    <div class="cart-item">
+                        <div><b>${i.n}</b><br>${i.p}€</div>
+                        <button class="remove-item" onclick="removeFromCart(${i.id})">🗑️</button>
+                    </div>`;
+            });
+            document.getElementById('cart-total').innerText = t.toFixed(2) + "€";
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        // GESTION DU PAIEMENT
+        function openCheckout() {
+            if(cart.length === 0) return alert("Votre panier est vide !");
+            document.getElementById('checkout-total').innerText = document.getElementById('cart-total').innerText;
+            document.getElementById('checkout-modal').style.display = 'flex';
+        }
+
+        function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
+
+        function processPayment() {
+            alert("Paiement accepté ! Merci de votre confiance chez VAPE LUXE 🚀");
+            cart = [];
+            updateCart();
+            closeCheckout();
+            toggleCart();
+        }
 
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             document.getElementById('theme-icon').innerHTML = isDark ? "🌙" : "☀️";
-            const color = isDark ? 0x7000ff : 0x00d2ff;
-            if(vapeMat) vapeMat.color.set(color);
-            if(liquidMat) liquidMat.color.set(color);
+            if(vapeMat) vapeMat.color.set(isDark ? 0x7000ff : 0x00d2ff);
         }
 
-        // --- 3D VAPE (HERO) ---
+        // 3D
         let scene, camera, renderer, vapeMat, vapeGroup;
         function init3D() {
             const cont = document.getElementById('canvas-container');
@@ -243,85 +243,20 @@
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(cont.offsetWidth, cont.offsetHeight);
             cont.appendChild(renderer.domElement);
-
             vapeGroup = new THREE.Group();
             vapeMat = new THREE.MeshPhongMaterial({ color: 0x00d2ff, shininess: 100 });
-            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.6, 4, 32), vapeMat);
-            const dripTip = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.8, 32), new THREE.MeshPhongMaterial({color: 0x333333}));
-            dripTip.position.y = 2.4;
-            vapeGroup.add(body, dripTip);
+            vapeGroup.add(new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.6, 4, 32), vapeMat));
             scene.add(vapeGroup);
-
-            const light = new THREE.PointLight(0xffffff, 2); light.position.set(5, 5, 5);
-            scene.add(light, new THREE.AmbientLight(0xffffff, 0.5));
+            scene.add(new THREE.PointLight(0xffffff, 2).set(5, 5, 5));
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
             camera.position.z = 6;
             animate();
         }
-
-        // --- 3D FLACON (LIQUIDES) ---
-        let liquidScene, liquidCamera, liquidRenderer, liquidMat, liquidGroup;
-        function initLiquid3D() {
-            const cont = document.getElementById('liquid-canvas');
-            liquidScene = new THREE.Scene();
-            liquidCamera = new THREE.PerspectiveCamera(75, cont.offsetWidth / cont.offsetHeight, 0.1, 1000);
-            liquidRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            liquidRenderer.setSize(cont.offsetWidth, cont.offsetHeight);
-            cont.appendChild(liquidRenderer.domElement);
-
-            liquidGroup = new THREE.Group();
-            liquidMat = new THREE.MeshPhongMaterial({ color: 0x00d2ff, transparent: true, opacity: 0.8 });
-            const bottle = new THREE.Mesh(new THREE.BoxGeometry(1.5, 3, 1.5), liquidMat);
-            const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.8, 32), new THREE.MeshPhongMaterial({color: 0xffffff}));
-            cap.position.y = 1.9;
-            liquidGroup.add(bottle, cap);
-            liquidScene.add(liquidGroup);
-
-            const light = new THREE.PointLight(0xffffff, 2); light.position.set(-5, 5, 5);
-            liquidScene.add(light, new THREE.AmbientLight(0xffffff, 0.5));
-            liquidCamera.position.z = 6;
-            animateLiquids();
-        }
-
         function animate() {
             requestAnimationFrame(animate);
-            if(vapeGroup) { vapeGroup.rotation.y += 0.01; vapeGroup.rotation.x = Math.sin(Date.now()*0.001)*0.2; }
+            if(vapeGroup) vapeGroup.rotation.y += 0.01;
             renderer.render(scene, camera);
         }
-
-        function animateLiquids() {
-            requestAnimationFrame(animateLiquids);
-            if(liquidGroup) { liquidGroup.rotation.y -= 0.01; liquidGroup.rotation.z = Math.cos(Date.now()*0.001)*0.1; }
-            liquidRenderer.render(liquidScene, liquidCamera);
-        }
-
-        // --- PANIER ---
-        let cart = [];
-        function addToCart(n, p) {
-            cart.push({id: Date.now(), n, p});
-            updateCart();
-            if(!document.getElementById('cart-sidebar').classList.contains('open')) toggleCart();
-        }
-        function updateCart() {
-            const items = document.getElementById('cart-items');
-            items.innerHTML = ""; let t = 0;
-            cart.forEach(i => {
-                t += i.p;
-                items.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:15px; background:var(--card-bg); padding:10px; border-radius:10px; border:1px solid var(--border)">
-                    <span>${i.n}</span><b>${i.p}€</b></div>`;
-            });
-            document.getElementById('cart-total').innerText = t.toFixed(2) + "€";
-            document.getElementById('cart-count').innerText = cart.length;
-        }
-
-        window.addEventListener('resize', () => {
-            const c1 = document.getElementById('canvas-container');
-            camera.aspect = c1.offsetWidth / c1.offsetHeight;
-            camera.updateProjectionMatrix(); renderer.setSize(c1.offsetWidth, c1.offsetHeight);
-            
-            const c2 = document.getElementById('liquid-canvas');
-            liquidCamera.aspect = c2.offsetWidth / c2.offsetHeight;
-            liquidCamera.updateProjectionMatrix(); liquidRenderer.setSize(c2.offsetWidth, c2.offsetHeight);
-        });
     </script>
 </body>
 </html>
