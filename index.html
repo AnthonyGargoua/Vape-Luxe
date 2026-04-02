@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* MODE CLAIR : BLEU / VERT */
             --bg: #f0f5f2;
             --text: #1a2b26;
             --accent: #00d2ff;
@@ -18,7 +17,6 @@
         }
 
         .dark-mode {
-            /* MODE SOMBRE : VIOLET / ROSE / ROUGE */
             --bg: #05010a;
             --text: #ffffff;
             --accent: #ff007a;
@@ -30,7 +28,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: background 0.4s, color 0.4s, border 0.4s; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* NAVIGATION & BURGER */
         nav { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 15px 5%; position: fixed; width: 100%; z-index: 1000;
@@ -62,24 +59,21 @@
             .burger { display: flex; }
         }
 
-        /* HERO & BANNER & 3D CONTAINERS */
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: space-between; padding: 0 10%; position: relative; overflow: hidden; }
+        /* HERO */
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 5%; position: relative; overflow: hidden; }
         
-        /* BANNIÈRE IMMERSIVE VAPE */
         .hero-bg-banner {
-            position: absolute; top: 0; right: 0; width: 60%; height: 100%;
+            position: absolute; top: 0; right: 0; width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?q=80&w=1600') center/cover;
-            mask-image: linear-gradient(to left, black 50%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to left, black 50%, transparent 100%);
-            opacity: 0.1; z-index: 1; pointer-events: none;
+            opacity: 0.05; z-index: 1; pointer-events: none;
         }
 
-        /* Conteneurs 3D (Z-index 5 pour être devant la bannière mais derrière le texte) */
-        #canvas-box { position: absolute; right: 0; top: 0; width: 55%; height: 100%; z-index: 5; pointer-events: none; }
-        #canvas-liquid { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 15; pointer-events: none; }
+        /* 3D CONTAINERS PLACEMENT */
+        #canvas-box { position: absolute; right: 0; top: 0; width: 45%; height: 100%; z-index: 5; pointer-events: none; }
+        #canvas-liquid { position: absolute; left: 0; top: 0; width: 35%; height: 100%; z-index: 5; pointer-events: none; }
 
-        .hero-content { z-index: 10; max-width: 600px; position: relative; }
-        .hero-content h1 { font-size: clamp(3rem, 10vw, 5.5rem); line-height: 0.9; margin-bottom: 20px; }
+        .hero-content { z-index: 10; text-align: center; max-width: 600px; position: relative; }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 5rem); line-height: 0.9; margin-bottom: 20px; }
         
         /* PRODUITS */
         .products { padding: 100px 10%; position: relative; z-index: 10; }
@@ -97,32 +91,25 @@
         .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); }
         .remove-btn { color: #ff3b3b; cursor: pointer; border: none; background: none; font-weight: 700; }
 
-        /* MODAL PAIEMENT (RÉALISTE SIMULÉ) */
+        /* MODAL PAIEMENT */
         .checkout-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); opacity: 0; transition: opacity 0.4s ease; }
         .checkout-modal.open { display: flex; opacity: 1; }
         .checkout-content { background: var(--bg); padding: 40px; border-radius: 30px; width: 90%; max-width: 500px; border: 1px solid var(--accent); position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
         
-        .checkout-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .checkout-content input, .checkout-content select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 1rem; }
-        .checkout-row { display: flex; gap: 15px; }
-
-        .main-btn { padding: 15px 40px; border-radius: 50px; border: none; background: var(--grad); color: white; font-weight: 700; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .main-btn:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,242,255,0.4); }
+        .main-btn { padding: 15px 40px; border-radius: 50px; border: none; background: var(--grad); color: white; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+        .main-btn:hover { transform: translateY(-5px); }
 
         /* FOOTER */
         footer { padding: 80px 10% 40px; background: var(--card-bg); border-top: 1px solid var(--border); border-radius: 50px 50px 0 0; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; margin-bottom: 50px; }
-        .footer-link { display: block; margin-top: 15px; opacity: 0.6; cursor: pointer; text-decoration: none; color: var(--text); }
-        .footer-link:hover { opacity: 1; color: var(--accent); }
 
         /* AGE GATE */
         .age-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; }
         .age-gate.hidden { transform: translateY(-100%); transition: 0.8s cubic-bezier(0.8, 0, 0.2, 1); }
 
         @media (max-width: 768px) {
-            .hero { flex-direction: column; padding-top: 120px; text-align: center; }
-            #canvas-box, #canvas-liquid { position: relative; width: 100%; height: 400px; right: 0; left: 0; }
-            .hero-bg-banner { width: 100%; mask-image: linear-gradient(to top, black 50%, transparent 100%); opacity: 0.05; }
+            #canvas-box { width: 40%; }
+            #canvas-liquid { width: 30%; }
+            .hero-content { margin-top: 50px; }
             .cart-sidebar { width: 100%; }
         }
     </style>
@@ -139,25 +126,19 @@
 
     <div id="checkout-modal" class="checkout-modal">
         <div class="checkout-content">
-            <div class="checkout-header">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
                 <h2>PAIEMENT SÉCURISÉ 🔒</h2>
                 <button onclick="closeCheckout()" style="background:none; border:none; color:var(--text); font-size:2rem; cursor:pointer;">&times;</button>
             </div>
             <p style="color: #ffcc00; font-weight: 700; margin-bottom: 15px; background: rgba(255,204,0,0.1); padding: 10px; border-radius: 8px;">⚠️ MODE TEST : AUCUN ARGENT NE SERA DÉBITÉ.</p>
-            <p>Méthode de paiement :</p>
-            <select>
-                <option value="visa">Visa / Mastercard / Amex</option>
-                <option value="paypal">PayPal</option>
-                <option value="crypto">Cryptomonnaie (BTC/ETH)</option>
-            </select>
-            <input type="text" placeholder="Nom complet sur la carte (Factice)">
-            <input type="text" placeholder="Numéro de carte (Factice - 16 chiffres)">
-            <div class="checkout-row">
-                <input type="text" placeholder="MM/AA">
-                <input type="text" placeholder="CVC">
+            <input type="text" placeholder="Nom complet (Factice)">
+            <input type="text" placeholder="Numéro de carte (16 chiffres)">
+            <div style="display:flex; gap:10px;">
+                <input type="text" placeholder="MM/AA" style="width:50%;">
+                <input type="text" placeholder="CVC" style="width:50%;">
             </div>
-            <p style="margin-top: 20px; font-size: 1.5rem; display:flex; justify-content:space-between;">Total : <span id="checkout-total" style="color: var(--accent); font-weight: 700;">0€</span></p>
-            <button class="main-btn" style="width: 100%; margin-top: 20px;" onclick="processPayment()">CONFIRMER LE PAIEMENT (TEST)</button>
+            <p style="margin-top:20px; font-size: 1.5rem;">Total : <span id="checkout-total" style="color: var(--accent);">0€</span></p>
+            <button class="main-btn" style="width: 100%; margin-top: 20px;" onclick="processPayment()">CONFIRMER (TEST)</button>
         </div>
     </div>
 
@@ -176,12 +157,15 @@
     </nav>
 
     <section class="hero" id="home">
-        <div class="hero-bg-banner"></div> <div class="hero-content">
+        <div id="canvas-liquid"></div>
+        <div class="hero-bg-banner"></div> 
+        <div class="hero-content">
             <h1>Bonnes<br>Vibes <span>Only</span></h1>
-            <p>Le futur de la vape premium est entre vos mains. Design, puissance et saveur.</p><br>
+            <p>Le futur de la vape premium est entre vos mains.</p><br>
             <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Découvrir</button>
         </div>
-        <div id="canvas-box"></div> </section>
+        <div id="canvas-box"></div> 
+    </section>
 
     <section class="products" id="shop">
         <h2 style="font-size: 3rem; margin-bottom: 50px;">Hardware <span>Premium</span> ⚡</h2>
@@ -199,15 +183,13 @@
         </div>
     </section>
 
-    <section id="liquides" style="background: var(--card-bg); position: relative; min-height: 80vh;">
-        <div id="canvas-liquid"></div> <div class="products">
-            <h2 style="font-size: 3rem; margin-bottom: 50px;">Saveurs <span>Infinites</span> 🍓</h2>
-            <div class="grid">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600" alt="Liquid">
-                    <h3>ICE BERRY 🧊</h3><p class="price">15€</p>
-                    <button class="btn-add" onclick="addToCart('Ice Berry', 15)">Ajouter 🛒</button>
-                </div>
+    <section id="liquides" style="background: var(--card-bg); position: relative; padding: 100px 10%;">
+        <h2 style="font-size: 3rem; margin-bottom: 50px;">Saveurs <span>Infinites</span> 🍓</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600" alt="Liquid">
+                <h3>ICE BERRY 🧊</h3><p class="price">15€</p>
+                <button class="btn-add" onclick="addToCart('Ice Berry', 15)">Ajouter 🛒</button>
             </div>
         </div>
     </section>
@@ -227,91 +209,64 @@
     </div>
 
     <footer>
-        <div class="footer-content">
-            <div><h3 class="logo">VAPE<span>LUXE</span></h3><p>Designed for the next generation. 🚀</p></div>
-            <div>
-                <h4>MENU</h4>
-                <a href="#home" class="footer-link">Accueil</a>
-                <a href="#shop" class="footer-link">Boutique</a>
-                <a href="#liquides" class="footer-link">E-Liquides</a>
-            </div>
-            <div>
-                <h4>SOCIAL</h4>
-                <a href="#" class="footer-link">Instagram</a>
-                <a href="#" class="footer-link">Discord</a>
-            </div>
-        </div>
-        <p style="text-align:center; opacity:0.3; font-size:0.8rem; border-top: 1px solid var(--border); padding-top: 20px;">© 2026 VAPE LUXE - INTERDIT AUX MINEURS 🔞</p>
+        <p style="text-align:center; opacity:0.3; font-size:0.8rem;">© 2026 VAPE LUXE - INTERDIT AUX MINEURS 🔞</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- LOGIQUE UI ---
         function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
         function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); initLiquid3D(); }
 
-        // --- GESTION THÈME & COULEURS 3D (CORRIGÉ) ---
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             document.getElementById('theme-icon').innerHTML = isDark ? "🌙" : "☀️";
-            const color = isDark ? 0xff007a : 0x00d2ff; // Rose vs Bleu Aqua
+            const color = isDark ? 0xff007a : 0x00d2ff;
             if(matBoxBody) matBoxBody.color.set(color);
             if(matLiquid) matLiquid.color.set(color);
         }
 
-        // --- 3D HERO (MODÉLISATION PLUS RÉALISTE) ---
-        let sceneBox, camBox, rendBox, matBoxBody, groupBox;
+        // --- 3D HERO (DOUBLE BOX) ---
+        let sceneBox, camBox, rendBox, matBoxBody, groupBox1, groupBox2;
         function init3D() {
             const cont = document.getElementById('canvas-box');
             sceneBox = new THREE.Scene();
             camBox = new THREE.PerspectiveCamera(75, cont.offsetWidth / cont.offsetHeight, 0.1, 1000);
             rendBox = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             rendBox.setSize(cont.offsetWidth, cont.offsetHeight);
-            rendBox.setPixelRatio(window.devicePixelRatio);
             cont.appendChild(rendBox.domElement);
 
-            groupBox = new THREE.Group();
-            matBoxBody = new THREE.MeshPhongMaterial({ color: 0x00d2ff, shininess: 120, specular: 0xffffff });
+            matBoxBody = new THREE.MeshPhongMaterial({ color: 0x00d2ff, shininess: 120 });
             const metalMat = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.9, roughness: 0.1 });
-            
-            // Corps principal (Box Mod)
-            const body = new THREE.Mesh(new THREE.BoxGeometry(2, 3.5, 1.2), matBoxBody);
-            
-            // Connecteur 510
-            const plate = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 0.1, 32), metalMat);
-            plate.position.y = 1.8;
-            
-            // Atomiseur (Tank)
-            const glassMat = new THREE.MeshPhongMaterial({ color: 0xffffff, transparent: true, opacity: 0.4 });
-            const tankBase = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.3, 32), metalMat);
-            tankBase.position.y = 2.0;
-            const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.58, 0.8, 32), glassMat);
-            glass.position.y = 2.5;
-            const chimney = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.8, 32), metalMat);
-            chimney.position.y = 2.5;
-            const topCap = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.2, 32), metalMat);
-            topCap.position.y = 2.9;
-            const dripTip = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.4, 32), new THREE.MeshPhongMaterial({color: 0x111111}));
-            dripTip.position.y = 3.2;
-            
-            // Bouton de tir texturé
-            const btn = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.2, 32), metalMat);
-            btn.rotation.z = Math.PI/2;
-            btn.position.set(1.0, 1.2, 0);
 
-            groupBox.add(body, plate, tankBase, glass, chimney, topCap, dripTip, btn);
-            sceneBox.add(groupBox);
+            function createVape() {
+                const g = new THREE.Group();
+                const body = new THREE.Mesh(new THREE.BoxGeometry(2, 3.5, 1.2), matBoxBody);
+                const plate = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 0.1, 32), metalMat);
+                plate.position.y = 1.8;
+                const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.58, 1.2, 32), new THREE.MeshPhongMaterial({color: 0xffffff, transparent: true, opacity: 0.3}));
+                glass.position.y = 2.4;
+                const dripTip = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.4, 32), new THREE.MeshPhongMaterial({color: 0x111111}));
+                dripTip.position.y = 3.2;
+                g.add(body, plate, glass, dripTip);
+                return g;
+            }
 
-            const light = new THREE.DirectionalLight(0xffffff, 2);
-            light.position.set(2, 5, 5);
-            sceneBox.add(light, new THREE.AmbientLight(0xffffff, 0.7));
-            camBox.position.z = 6;
+            groupBox1 = createVape();
+            groupBox1.position.set(1.5, 0, 0);
+            
+            groupBox2 = createVape();
+            groupBox2.position.set(-1.5, -1, -2); // Un peu en retrait
+            groupBox2.scale.set(0.8, 0.8, 0.8);
+
+            sceneBox.add(groupBox1, groupBox2);
+            sceneBox.add(new THREE.DirectionalLight(0xffffff, 2), new THREE.AmbientLight(0xffffff, 0.7));
+            camBox.position.z = 7;
             animateBox();
         }
 
-        // --- 3D FLACON (VISIBLE ET DEVANT) ---
+        // --- 3D LIQUID (A GAUCHE) ---
         let sceneLiq, camLiq, rendLiq, matLiquid, groupLiquid;
         function initLiquid3D() {
             const cont = document.getElementById('canvas-liquid');
@@ -322,44 +277,27 @@
             cont.appendChild(rendLiq.domElement);
 
             groupLiquid = new THREE.Group();
-            matLiquid = new THREE.MeshPhongMaterial({ color: 0x00d2ff, transparent: true, opacity: 0.7, shininess: 100 });
-            const labelMat = new THREE.MeshPhongMaterial({ color: 0xffffff });
-            const darkMat = new THREE.MeshPhongMaterial({ color: 0x222222 });
-
-            // Flacon Principal
-            const bottle = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.2, 3.5, 32), matLiquid);
+            matLiquid = new THREE.MeshPhongMaterial({ color: 0x00d2ff, transparent: true, opacity: 0.8 });
             
-            // Étiquette (visible devant)
-            const label = new THREE.Mesh(new THREE.CylinderGeometry(1.21, 1.21, 2, 32, 1, true, 0, Math.PI * 1.5), labelMat);
-            label.rotation.y = Math.PI;
+            const bottle = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 3, 32), matLiquid);
+            const label = new THREE.Mesh(new THREE.CylinderGeometry(1.01, 1.01, 1.8, 32), new THREE.MeshPhongMaterial({color: 0xffffff}));
+            const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.8, 32), new THREE.MeshPhongMaterial({color: 0x222222}));
+            cap.position.y = 1.9;
 
-            // Bouchon Pipette
-            const shoulder = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1.2, 0.5, 32), matLiquid);
-            shoulder.position.y = 2.0;
-            const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 0.8, 32), darkMat);
-            cap.position.y = 2.5;
-            const rubber = new THREE.Mesh(new THREE.SphereGeometry(0.4, 32, 32), darkMat);
-            rubber.scale.y = 1.2;
-            rubber.position.y = 3.0;
-
-            groupLiquid.add(bottle, label, shoulder, cap, rubber);
-            
-            // Positionnement stratégique : à gauche pour être DEVANT sans cacher le texte mobile
-            groupLiquid.position.set(-2, 0, 0); 
+            groupLiquid.add(bottle, label, cap);
+            groupLiquid.position.x = -1; // Décalé à gauche
             sceneLiq.add(groupLiquid);
-
-            const light = new THREE.PointLight(0xffffff, 2);
-            light.position.set(5, 5, 5);
-            sceneLiq.add(light, new THREE.AmbientLight(0xffffff, 0.8));
-            camLiq.position.z = 7;
+            sceneLiq.add(new THREE.PointLight(0xffffff, 2), new THREE.AmbientLight(0xffffff, 0.8));
+            camLiq.position.z = 6;
             animateLiquid();
         }
 
         function animateBox() {
             requestAnimationFrame(animateBox);
-            if(groupBox) {
-                groupBox.rotation.y += 0.008;
-                groupBox.position.y = Math.sin(Date.now()*0.0015)*0.15;
+            if(groupBox1) {
+                groupBox1.rotation.y += 0.01;
+                groupBox1.position.y = Math.sin(Date.now()*0.001)*0.2;
+                groupBox2.rotation.y -= 0.005;
             }
             rendBox.render(sceneBox, camBox);
         }
@@ -367,18 +305,15 @@
         function animateLiquid() {
             requestAnimationFrame(animateLiquid);
             if(groupLiquid) {
-                groupLiquid.rotation.y += 0.01;
-                // Effet de flottement synchronisé
+                groupLiquid.rotation.y += 0.015;
                 groupLiquid.position.y = Math.cos(Date.now()*0.001)*0.2;
             }
             rendLiq.render(sceneLiq, camLiq);
         }
 
-        // --- PANIER ---
         let cart = [];
         function addToCart(n, p) { cart.push({id: Date.now(), n, p}); updateCart(); toggleCart(); }
         function removeFromCart(id) { cart = cart.filter(i => i.id !== id); updateCart(); }
-        
         function updateCart() {
             const items = document.getElementById('cart-items');
             items.innerHTML = ""; let t = 0;
@@ -390,20 +325,19 @@
             document.getElementById('cart-count').innerText = cart.length;
         }
 
-        // --- PAIEMENT ---
         function openCheckout() {
-            if(cart.length === 0) return alert("Votre panier est vide !");
+            if(cart.length === 0) return alert("Panier vide !");
             document.getElementById('checkout-total').innerText = document.getElementById('cart-total').innerText;
             document.getElementById('checkout-modal').classList.add('open');
         }
         function closeCheckout() { document.getElementById('checkout-modal').classList.remove('open'); }
-        function processPayment() { alert("TEST réussi ! Paiement simulé accepté. Merci (Factice) 🚀"); cart=[]; updateCart(); closeCheckout(); toggleCart(); }
+        function processPayment() { alert("Merci ! Commande simulée réussie 🚀"); cart=[]; updateCart(); closeCheckout(); }
 
         window.addEventListener('resize', () => {
             const c1 = document.getElementById('canvas-box');
-            if(c1 && camBox && rendBox) { camBox.aspect = c1.offsetWidth / c1.offsetHeight; camBox.updateProjectionMatrix(); rendBox.setSize(c1.offsetWidth, c1.offsetHeight); }
+            if(c1 && rendBox) { camBox.aspect = c1.offsetWidth / c1.offsetHeight; camBox.updateProjectionMatrix(); rendBox.setSize(c1.offsetWidth, c1.offsetHeight); }
             const c2 = document.getElementById('canvas-liquid');
-            if(c2 && camLiq && rendLiq) { camLiq.aspect = c2.offsetWidth / c2.offsetHeight; camLiq.updateProjectionMatrix(); rendLiq.setSize(c2.offsetWidth, c2.offsetHeight); }
+            if(c2 && rendLiq) { camLiq.aspect = c2.offsetWidth / c2.offsetHeight; camLiq.updateProjectionMatrix(); rendLiq.setSize(c2.offsetWidth, c2.offsetHeight); }
         });
     </script>
 </body>
