@@ -27,7 +27,7 @@
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: all 0.4s ease; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: background 0.4s, color 0.4s, border 0.4s; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
 
         /* NAVIGATION & BURGER */
@@ -49,7 +49,6 @@
         .theme-toggle { cursor: pointer; font-size: 1.2rem; background: var(--card-bg); border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; color: var(--text); }
         .btn-cart { background: var(--grad); border: none; padding: 10px 18px; border-radius: 12px; font-weight: 700; color: white; cursor: pointer; display: flex; align-items: center; gap: 8px; }
 
-        /* BURGER MENU STYLES */
         .burger { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
         .burger div { width: 28px; height: 3px; background: var(--text); border-radius: 5px; }
 
@@ -57,13 +56,13 @@
             .nav-links {
                 position: fixed; right: -100%; top: 0; height: 100vh; width: 80%;
                 background: var(--bg); flex-direction: column; justify-content: center; align-items: center;
-                box-shadow: -10px 0 30px rgba(0,0,0,0.2); z-index: 999;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.2); z-index: 999; transition: 0.5s;
             }
             .nav-links.active { right: 0; }
             .burger { display: flex; z-index: 1001; }
         }
 
-        /* HERO & BANNER */
+        /* SECTIONS */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: space-between; padding: 0 10%; position: relative; overflow: hidden; }
         .hero-bg-banner {
             position: absolute; top: 0; right: 0; width: 60%; height: 100%;
@@ -74,24 +73,30 @@
         }
         .hero-content { z-index: 10; max-width: 600px; }
         .hero-content h1 { font-size: clamp(3rem, 10vw, 5.5rem); line-height: 0.9; margin-bottom: 20px; }
-        #canvas-container { position: absolute; right: -5%; width: 60%; height: 100%; cursor: pointer; z-index: 5; }
+        
+        #canvas-container, #liquid-canvas { position: absolute; right: -5%; width: 60%; height: 100%; cursor: pointer; z-index: 5; }
+        #liquid-section { position: relative; min-height: 80vh; display: flex; align-items: center; padding: 100px 10%; overflow: hidden; }
 
         /* BOUTONS & PRODUITS */
         .main-btn { padding: 15px 40px; border-radius: 50px; border: none; background: var(--grad); color: white; font-weight: 700; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .products { padding: 100px 10%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: var(--card-bg); border-radius: 24px; padding: 20px; border: 1px solid var(--border); backdrop-filter: var(--glass); text-align: center; }
-        .card img { width: 100%; height: 280px; object-fit: cover; border-radius: 18px; margin-bottom: 20px; }
-        .price { font-size: 1.8rem; font-weight: 700; color: var(--accent); margin-bottom: 20px; }
-        .btn-add { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: transparent; color: var(--text); font-weight: 700; cursor: pointer; }
-        .btn-add:hover { background: var(--grad); color: white; border: none; }
+        .products { padding: 100px 10%; position: relative; z-index: 10; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: var(--card-bg); border-radius: 24px; padding: 20px; border: 1px solid var(--border); backdrop-filter: var(--glass); text-align: center; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .card img { width: 100%; height: 250px; object-fit: cover; border-radius: 18px; margin-bottom: 20px; }
+        .price { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 15px; }
+        .btn-add { width: 100%; padding: 12px; border-radius: 12px; border: 2px solid var(--accent); background: transparent; color: var(--text); font-weight: 700; cursor: pointer; }
+        .btn-add:hover { background: var(--grad); color: white; border-color: transparent; }
 
-        /* FOOTER & SIDEBAR (Gardé tel quel) */
-        .cart-sidebar { position: fixed; right: -100%; top: 0; width: 400px; height: 100%; background: var(--bg); border-left: 1px solid var(--border); z-index: 2000; padding: 40px; }
+        /* FOOTER & SIDEBAR */
+        .cart-sidebar { position: fixed; right: -100%; top: 0; width: 400px; height: 100%; background: var(--bg); border-left: 1px solid var(--border); z-index: 2000; padding: 40px; transition: 0.5s; }
         .cart-sidebar.open { right: 0; }
         footer { padding: 80px 10% 40px; background: var(--card-bg); border-top: 1px solid var(--border); border-radius: 50px 50px 0 0; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; }
-        .age-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; }
+        .footer-link { display: block; margin-top: 10px; color: var(--text); text-decoration: none; opacity: 0.6; }
+        .footer-link:hover { opacity: 1; color: var(--accent); }
+        
+        .age-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 0.8s; }
         .age-gate.hidden { transform: translateY(-100%); }
     </style>
 </head>
@@ -114,7 +119,7 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="#home" onclick="toggleMenu()">ACCUEIL</a></li>
             <li><a href="#shop" onclick="toggleMenu()">BOUTIQUE</a></li>
-            <li><a href="#shop" onclick="toggleMenu()">LIQUIDES</a></li>
+            <li><a href="#liquides" onclick="toggleMenu()">E-LIQUIDES</a></li>
             <li><a href="#" onclick="toggleMenu()">DISCORD</a></li>
         </ul>
 
@@ -128,54 +133,82 @@
         <div class="hero-bg-banner"></div>
         <div class="hero-content">
             <h1>Good<br>Vibes <span>Only</span></h1>
-            <p>Le futur de la vape premium avec les meilleures marques mondiales.</p>
-            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Je fume maintenant</button>
+            <p>Le futur de la vape premium avec les meilleures marques mondiales.</p><br>
+            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Découvrir</button>
         </div>
         <div id="canvas-container"></div>
     </section>
 
     <section class="products" id="shop">
-        <h2 style="font-size: 3rem; margin-bottom: 50px;">Nouveautés 🔥</h2>
+        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Hardware <span>Premium</span> ⚡</h2>
         <div class="grid">
             <div class="card">
                 <img src="https://www.gfc-provap.com/143533-thickbox/mod-blaster-2170018650-bd-vape.jpg" alt="Mod">
                 <h3>Mod Blaster BD Vape</h3>
                 <p class="price">50€</p>
-                <button class="btn-add" onclick="addToCart('Mod Blaster', 50)">Ajouter au panier 🛒</button>
+                <button class="btn-add" onclick="addToCart('Mod Blaster', 50)">Ajouter 🛒</button>
             </div>
             <div class="card">
                 <img src="https://www.promovap.com/10492-large_default/dead-rabbit-v3-rta-joker-edition-hellvape.jpg" alt="Vape">
                 <h3>Dead Rabbit 3 - Joker</h3>
                 <p class="price">35€</p>
-                <button class="btn-add" onclick="addToCart('Dead Rabbit', 35)">Ajouter au panier 🛒</button>
+                <button class="btn-add" onclick="addToCart('Dead Rabbit', 35)">Ajouter 🛒</button>
             </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600" alt="Liquid">
-                <h3>ICE BERRY 🧊</h3>
-                <p class="price">15€</p>
-                <button class="btn-add" onclick="addToCart('Ice Berry', 15)">Ajouter au panier 🛒</button>
+        </div>
+    </section>
+
+    <section id="liquides" style="background: var(--card-bg); padding-bottom: 100px;">
+        <div id="liquid-section">
+            <div class="hero-content" style="z-index: 10; position: relative;">
+                <h2 style="font-size: 3rem;">Saveurs <span>Infinites</span> 🍓</h2>
+                <p>Des mélanges uniques créés par les meilleurs juice-makers du monde.</p>
+            </div>
+            <div id="liquid-canvas"></div>
+        </div>
+        <div class="products">
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600" alt="Liquid">
+                    <h3>ICE BERRY 🧊</h3>
+                    <p class="price">15€</p>
+                    <button class="btn-add" onclick="addToCart('Ice Berry', 15)">Ajouter 🛒</button>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1550184649-651586548545?q=80&w=600" alt="Liquid">
+                    <h3>MANGO DREAM 🥭</h3>
+                    <p class="price">18€</p>
+                    <button class="btn-add" onclick="addToCart('Mango Dream', 18)">Ajouter 🛒</button>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1589135401672-031e42761836?q=80&w=600" alt="Liquid">
+                    <h3>TOBACCO GOLD 🍂</h3>
+                    <p class="price">12€</p>
+                    <button class="btn-add" onclick="addToCart('Tobacco Gold', 12)">Ajouter 🛒</button>
+                </div>
             </div>
         </div>
     </section>
 
     <div id="cart-sidebar" class="cart-sidebar">
-        <h2>VOTRE PANIER 🛍️</h2><br>
-        <div id="cart-items" style="flex-grow:1;"></div>
-        <hr><br>
-        <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:700;">
-            <span>TOTAL</span><span id="cart-total">0.00€</span>
+        <h2 style="margin-bottom: 30px;">VOTRE PANIER 🛍️</h2>
+        <div id="cart-items" style="max-height: 60vh; overflow-y: auto;"></div>
+        <div style="position: absolute; bottom: 40px; left: 40px; right: 40px;">
+            <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:700; border-top: 1px solid var(--border); padding-top: 20px;">
+                <span>TOTAL</span><span id="cart-total">0.00€</span>
+            </div>
+            <button class="main-btn" style="width:100%; margin-top:20px;">COMMANDER ✅</button>
+            <button onclick="toggleCart()" style="margin-top:15px; background:none; border:none; color:var(--text); cursor:pointer; width:100%; opacity: 0.5;">Fermer le panier</button>
         </div>
-        <button class="main-btn" style="width:100%; margin-top:20px;">Récapitulatif ✅</button>
-        <button onclick="toggleCart()" style="margin-top:10px; background:none; border:none; color:var(--text); cursor:pointer; width:100%;">Fermer</button>
     </div>
 
     <footer>
         <div class="footer-content">
-            <div><h3 class="logo">VAPE<span>LUXE</span></h3><p>Le premier site de référencement vape 🚀</p></div>
+            <div><h3 class="logo">VAPE<span>LUXE</span></h3><p>Le futur de la vape 🚀</p></div>
             <div>
                 <h4>MENU</h4>
                 <a href="#home" class="footer-link">Accueil</a>
                 <a href="#shop" class="footer-link">Boutique</a>
+                <a href="#liquides" class="footer-link">E-Liquides</a>
             </div>
             <div>
                 <h4>SOCIAL</h4>
@@ -187,63 +220,85 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- LOGIQUE MENU ---
-        function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
+        // --- LOGIQUE UI ---
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
+        function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); initLiquid3D(); }
 
-        // --- THEME & COULEURS ---
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             document.getElementById('theme-icon').innerHTML = isDark ? "🌙" : "☀️";
-            // Changement couleur 3D : Bleu/Vert vs Violet/Rouge
-            if(vapeMaterial) vapeMaterial.color.set(isDark ? 0x7000ff : 0x00d2ff);
+            const color = isDark ? 0x7000ff : 0x00d2ff;
+            if(vapeMat) vapeMat.color.set(color);
+            if(liquidMat) liquidMat.color.set(color);
         }
 
-        // --- 3D INTERACTIVE ---
-        let scene, camera, renderer, vapeMaterial, vapeGroup;
-        const container = document.getElementById('canvas-container');
-
+        // --- 3D VAPE (HERO) ---
+        let scene, camera, renderer, vapeMat, vapeGroup;
         function init3D() {
+            const cont = document.getElementById('canvas-container');
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+            camera = new THREE.PerspectiveCamera(75, cont.offsetWidth / cont.offsetHeight, 0.1, 1000);
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(container.offsetWidth, container.offsetHeight);
-            container.appendChild(renderer.domElement);
+            renderer.setSize(cont.offsetWidth, cont.offsetHeight);
+            cont.appendChild(renderer.domElement);
 
-            const group = new THREE.Group();
-            vapeMaterial = new THREE.MeshPhongMaterial({ color: 0x00d2ff, shininess: 100, transparent: true, opacity: 0.9 });
-            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.7, 4, 32), vapeMaterial);
-            const ring = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.05, 16, 100), new THREE.MeshBasicMaterial({ color: 0xffffff }));
-            ring.rotation.x = Math.PI/2; ring.position.y = 1;
-            
-            group.add(body); group.add(ring);
-            scene.add(group);
-            vapeGroup = group;
+            vapeGroup = new THREE.Group();
+            vapeMat = new THREE.MeshPhongMaterial({ color: 0x00d2ff, shininess: 100 });
+            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.6, 4, 32), vapeMat);
+            const dripTip = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.8, 32), new THREE.MeshPhongMaterial({color: 0x333333}));
+            dripTip.position.y = 2.4;
+            vapeGroup.add(body, dripTip);
+            scene.add(vapeGroup);
 
-            scene.add(new THREE.PointLight(0xffffff, 2).set(5, 5, 5));
-            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+            const light = new THREE.PointLight(0xffffff, 2); light.position.set(5, 5, 5);
+            scene.add(light, new THREE.AmbientLight(0xffffff, 0.5));
             camera.position.z = 6;
             animate();
         }
 
+        // --- 3D FLACON (LIQUIDES) ---
+        let liquidScene, liquidCamera, liquidRenderer, liquidMat, liquidGroup;
+        function initLiquid3D() {
+            const cont = document.getElementById('liquid-canvas');
+            liquidScene = new THREE.Scene();
+            liquidCamera = new THREE.PerspectiveCamera(75, cont.offsetWidth / cont.offsetHeight, 0.1, 1000);
+            liquidRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            liquidRenderer.setSize(cont.offsetWidth, cont.offsetHeight);
+            cont.appendChild(liquidRenderer.domElement);
+
+            liquidGroup = new THREE.Group();
+            liquidMat = new THREE.MeshPhongMaterial({ color: 0x00d2ff, transparent: true, opacity: 0.8 });
+            const bottle = new THREE.Mesh(new THREE.BoxGeometry(1.5, 3, 1.5), liquidMat);
+            const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.8, 32), new THREE.MeshPhongMaterial({color: 0xffffff}));
+            cap.position.y = 1.9;
+            liquidGroup.add(bottle, cap);
+            liquidScene.add(liquidGroup);
+
+            const light = new THREE.PointLight(0xffffff, 2); light.position.set(-5, 5, 5);
+            liquidScene.add(light, new THREE.AmbientLight(0xffffff, 0.5));
+            liquidCamera.position.z = 6;
+            animateLiquids();
+        }
+
         function animate() {
             requestAnimationFrame(animate);
-            if(vapeGroup) {
-                vapeGroup.rotation.y += 0.01;
-                vapeGroup.rotation.z = Math.sin(Date.now()*0.001)*0.1;
-            }
+            if(vapeGroup) { vapeGroup.rotation.y += 0.01; vapeGroup.rotation.x = Math.sin(Date.now()*0.001)*0.2; }
             renderer.render(scene, camera);
+        }
+
+        function animateLiquids() {
+            requestAnimationFrame(animateLiquids);
+            if(liquidGroup) { liquidGroup.rotation.y -= 0.01; liquidGroup.rotation.z = Math.cos(Date.now()*0.001)*0.1; }
+            liquidRenderer.render(liquidScene, liquidCamera);
         }
 
         // --- PANIER ---
         let cart = [];
-        function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); }
-        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
-        function addToCart(n, p) { 
-            cart.push({id: Date.now(), n, p}); 
-            updateCart(); 
+        function addToCart(n, p) {
+            cart.push({id: Date.now(), n, p});
+            updateCart();
             if(!document.getElementById('cart-sidebar').classList.contains('open')) toggleCart();
         }
         function updateCart() {
@@ -251,16 +306,21 @@
             items.innerHTML = ""; let t = 0;
             cart.forEach(i => {
                 t += i.p;
-                items.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>${i.n}</span><b>${i.p}€</b></div>`;
+                items.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:15px; background:var(--card-bg); padding:10px; border-radius:10px; border:1px solid var(--border)">
+                    <span>${i.n}</span><b>${i.p}€</b></div>`;
             });
             document.getElementById('cart-total').innerText = t.toFixed(2) + "€";
             document.getElementById('cart-count').innerText = cart.length;
         }
 
         window.addEventListener('resize', () => {
-            camera.aspect = container.offsetWidth / container.offsetHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.offsetWidth, container.offsetHeight);
+            const c1 = document.getElementById('canvas-container');
+            camera.aspect = c1.offsetWidth / c1.offsetHeight;
+            camera.updateProjectionMatrix(); renderer.setSize(c1.offsetWidth, c1.offsetHeight);
+            
+            const c2 = document.getElementById('liquid-canvas');
+            liquidCamera.aspect = c2.offsetWidth / c2.offsetHeight;
+            liquidCamera.updateProjectionMatrix(); liquidRenderer.setSize(c2.offsetWidth, c2.offsetHeight);
         });
     </script>
 </body>
