@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAPE LUXE | L'Expérience Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
+</head>
+<body>
 
+    <div id="age-gate" class="age-gate">
+        <div class="age-gate-content">
+            <div class="age-logo">VAPE<span>LUXE</span></div>
+            <h2>BIENVENUE DANS LE FUTUR</h2>
+            <p>Confirmez que vous avez plus de 18 ans pour entrer.</p>
+            <div class="age-buttons">
+                <button onclick="verifyAge()" class="btn-verify">JE SUIS MAJEUR</button>
+                <a href="https://www.google.com" class="btn-exit">QUITTER</a>
+            </div>
+            <p class="age-disclaimer">L'usage de la e-cigarette est interdit aux mineurs.</p>
+        </div>
+    </div>
+
+    <nav>
+        <div class="logo">VAPE<span>LUXE</span></div>
+        <ul>
+            <li>Modèles</li>
+            <li>E-Liquides</li>
+            <li class="cta">Panier (<span id="cart-count">0</span>)</li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="content">
+                <h1>L'AVENIR DE<br>LA VAPE.</h1>
+                <p>Design Ergonomique. Saveurs Intenses.</p>
+                <button class="explore-btn" onclick="document.getElementById('products').scrollIntoView()">DÉCOUVRIR LE MODÈLE X</button>
+            </div>
+            <div id="container-3d"></div>
+        </section>
+
+        <section id="products" class="products-grid">
+            <div class="product-card">
+                <div class="product-placeholder"></div>
+                <h3>Modèle X Cobalt</h3>
+                <p>69.90 €</p>
+                <button class="add-to-cart" data-name="Modèle X" data-price="69.90">Ajouter au panier</button>
+            </div>
+            <div class="product-card">
+                <div class="product-placeholder"></div>
+                <h3>Menthe Glaciale</h3>
+                <p>18.90 €</p>
+                <button class="add-to-cart" data-name="Menthe Glaciale" data-price="18.90">Ajouter au panier</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Votre Panier</h2>
+            <button id="close-cart">×</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-footer">
+            <p>Total: <span id="cart-total">0.00</span> €</p>
+            <button class="checkout-btn">COMMANDER</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
