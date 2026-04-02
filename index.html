@@ -3,120 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VAPE LUXE | Premium Store</title>
+    <title>VAPE LUXE | Premium Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00ffcc; --dark: #1a1a1a; --secondary: #252525; --transition: all 0.3s ease; }
+        :root { --primary: #00ffcc; --dark: #1a1a1a; --secondary: rgba(255,255,255,0.05); --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         
         body { 
-            background-color: var(--dark); 
-            color: white; 
-            font-family: 'Montserrat', sans-serif; 
-            /* FOND MODIFIÉ : Gris anthracite avec dégradé */
             background: radial-gradient(circle at center, #2c3e50 0%, #000000 100%);
             background-attachment: fixed;
-            min-height: 100vh;
+            color: white; font-family: 'Montserrat', sans-serif; overflow-x: hidden; 
         }
 
-        /* --- NAVIGATION --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; position: fixed; width: 100%; z-index: 1000; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: 3px; color: white; text-decoration: none; }
+        /* --- UI ELEMENTS --- */
+        .age-gate { position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); z-index: 10000; display: flex; justify-content: center; align-items: center; transition: 1s; }
+        .age-gate.hidden { opacity: 0; visibility: hidden; }
+        .age-gate-content { text-align: center; padding: 50px; border: 1px solid var(--primary); border-radius: 30px; background: #000; box-shadow: 0 0 50px rgba(0,255,204,0.2); max-width: 450px; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 8%; position: fixed; width: 100%; z-index: 100; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; color: white; }
         .logo span { color: var(--primary); }
-        .cta-cart { background: var(--primary); color: black; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 900; font-size: 0.8rem; }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; }
+        nav ul li a:hover { color: var(--primary); }
+        .cta-cart { color: var(--primary); cursor: pointer; border: 1px solid var(--primary); padding: 10px 20px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; }
 
         /* --- HERO --- */
-        section { padding: 100px 8%; }
-        .hero { height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
-        .hero-text { flex: 1; z-index: 10; }
-        h1 { font-size: 4rem; line-height: 1; margin-bottom: 20px; text-shadow: 0 0 20px rgba(0,255,204,0.3); }
-        #container-3d { position: absolute; right: 0; width: 55%; height: 100%; cursor: grab; }
+        .hero { height: 100vh; display: flex; align-items: center; padding: 0 8%; position: relative; }
+        .hero-content { flex: 1; z-index: 10; max-width: 600px; }
+        h1 { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 900; line-height: 0.9; margin-bottom: 20px; }
+        #container-3d { position: absolute; top: 0; right: 0; width: 60%; height: 100%; cursor: grab; z-index: 5; }
 
-        /* --- PRODUITS --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-        .card { background: var(--secondary); padding: 25px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); text-align: center; transition: var(--transition); }
-        .card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .card img { width: 100%; border-radius: 10px; margin-bottom: 20px; height: 200px; object-fit: cover; }
-        .price { color: var(--primary); font-size: 1.5rem; font-weight: 900; margin: 15px 0; }
-        .btn-add { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--primary); color: white; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .btn-add:hover { background: var(--primary); color: black; }
+        /* --- GRID & CARDS --- */
+        section { padding: 100px 8%; position: relative; z-index: 10; }
+        .section-title { font-size: 2.5rem; font-weight: 900; margin-bottom: 50px; text-align: center; text-transform: uppercase; }
+        .section-title span { color: var(--primary); }
 
-        /* --- PANIER (MODIFIABLE) --- */
-        .cart-sidebar { position: fixed; right: -450px; top: 0; width: 400px; height: 100%; background: #111; padding: 40px; z-index: 2000; transition: 0.5s; border-left: 2px solid var(--primary); display: flex; flex-direction: column; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--secondary); padding: 30px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: var(--transition); }
+        .card:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(255,255,255,0.08); }
+        .card img { width: 100%; height: 220px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; }
+        .price { color: var(--primary); font-weight: 900; font-size: 1.5rem; margin-bottom: 20px; }
+
+        .btn { padding: 15px 30px; background: var(--primary); border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.3s; border-radius: 5px; }
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: white; width: 100%; }
+        .btn-outline:hover { background: var(--primary); color: black; }
+
+        /* --- PANIER SIDEBAR --- */
+        .cart-sidebar { position: fixed; right: -450px; top: 0; width: 400px; height: 100%; background: #0a0a0a; padding: 40px; z-index: 2000; transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); border-left: 2px solid var(--primary); display: flex; flex-direction: column; }
         .cart-sidebar.open { right: 0; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #222; }
-        .remove-btn { color: #ff4d4d; cursor: pointer; font-size: 0.8rem; text-transform: uppercase; border: none; background: none; font-weight: 900; }
-        .cart-footer { margin-top: auto; padding-top: 20px; border-top: 2px solid #222; }
-        .btn-pay { width: 100%; padding: 20px; background: var(--primary); border: none; color: black; font-weight: 900; font-size: 1rem; cursor: pointer; border-radius: 5px; margin-top: 20px; }
-        .btn-pay:hover { background: #00ccaa; box-shadow: 0 0 20px var(--primary); }
+        .cart-header { display: flex; justify-content: space-between; margin-bottom: 40px; align-items: center; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #222; }
+        .remove-btn { color: #ff4d4d; cursor: pointer; background: none; border: none; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; }
+        .cart-footer { margin-top: auto; border-top: 1px solid #222; padding-top: 20px; }
+
+        /* --- FOOTER --- */
+        footer { padding: 80px 10% 40px; background: #000; border-top: 1px solid #222; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
+        .footer-col h4 { color: var(--primary); margin-bottom: 20px; text-transform: uppercase; }
+        .footer-col li { list-style: none; margin-bottom: 10px; color: #666; font-size: 0.9rem; }
+        .legal { text-align: center; color: #333; font-size: 0.7rem; border-top: 1px solid #111; padding-top: 30px; }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            #container-3d { width: 100%; height: 50%; bottom: 0; }
-            .hero { flex-direction: column; text-align: center; }
+            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+            #container-3d { width: 100%; height: 45vh; position: relative; margin-top: -50px; }
             .cart-sidebar { width: 100%; }
         }
     </style>
 </head>
 <body>
 
+    <div id="age-gate" class="age-gate">
+        <div class="age-gate-content">
+            <div class="age-logo">VAPE<span>LUXE</span></div>
+            <h2>CONFIRMEZ VOTRE ÂGE</h2>
+            <p style="color:#888; margin-bottom:20px;">Accès réservé aux personnes majeures.</p>
+            <button onclick="verifyAge()" class="btn">ENTRER</button>
+        </div>
+    </div>
+
     <nav>
         <a href="#" class="logo">VAPE<span>LUXE</span></a>
+        <ul>
+            <li><a href="#hero">Accueil</a></li>
+            <li><a href="#models">Modèles</a></li>
+            <li><a href="#liquids">E-Liquides</a></li>
+        </ul>
         <div class="cta-cart" onclick="toggleCart()">PANIER (<span id="cart-count">0</span>)</div>
     </nav>
 
-    <section class="hero" id="hero">
-        <div class="hero-text">
-            <h1>L'ÉLÉGANCE<br>À CHAQUE BOUFFÉE.</h1>
-            <p>Découvrez nos technologies de chauffe brevetées.</p>
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>DOMINEZ<br>LA VAPEUR.</h1>
+            <p>Le futur de la cigarette électronique est ici. Design titane et technologie de chauffe instantanée.</p>
+            <button class="btn" onclick="document.getElementById('models').scrollIntoView()">DÉCOUVRIR</button>
         </div>
         <div id="container-3d"></div>
     </section>
 
-    <section id="shop">
-        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 40px;">LA <span>BOUTIQUE</span></h2>
+    <section id="models">
+        <h2 class="section-title">NOS <span>MODÈLES</span></h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1631557005481-6f0920409a06?w=400" alt="Vape 1">
-                <h3>MODÈLE X COBALT</h3>
+                <img src="https://images.unsplash.com/photo-1631557005481-6f0920409a06?w=600" alt="Vape 1">
+                <h3>MODÈLE X - COBALT</h3>
                 <p class="price">69.90 €</p>
-                <button class="btn-add" onclick="addToCart('Modèle X', 69.90)">AJOUTER</button>
+                <button class="btn btn-outline" onclick="addToCart('Modèle X', 69.90)">ACHETER</button>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1606113264427-4663d28bd726?w=400" alt="Vape 2">
-                <h3>MODÈLE S ONYX</h3>
+                <img src="https://images.unsplash.com/photo-1606113264427-4663d28bd726?w=600" alt="Vape 2">
+                <h3>MODÈLE S - ONYX</h3>
                 <p class="price">89.90 €</p>
-                <button class="btn-add" onclick="addToCart('Modèle S', 89.90)">AJOUTER</button>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1552835011-094e637889cc?w=400" alt="Liquid">
-                <h3>MENTHE GLACIALE</h3>
-                <p class="price">18.90 €</p>
-                <button class="btn-add" onclick="addToCart('Menthe Glaciale', 18.90)">AJOUTER</button>
+                <button class="btn btn-outline" onclick="addToCart('Modèle S', 89.90)">ACHETER</button>
             </div>
         </div>
     </section>
 
+    <section id="liquids" style="background: rgba(0,0,0,0.3);">
+        <h2 class="section-title">SAVEURS <span>PREMIUM</span></h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1552835011-094e637889cc?w=600" alt="Liquid 1">
+                <h3>MENTHE GLACIALE</h3>
+                <p class="price">18.90 €</p>
+                <button class="btn btn-outline" onclick="addToCart('Menthe Glaciale', 18.90)">AJOUTER</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1616886476686-e8d19736c4ac?w=600" alt="Liquid 2">
+                <h3>TABAC CUBAIN</h3>
+                <p class="price">22.90 €</p>
+                <button class="btn btn-outline" onclick="addToCart('Tabac Cubain', 22.90)">AJOUTER</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">VAPE<span>LUXE</span></div>
+                <p style="margin-top:20px; color:#666;">L'excellence technologique au service de vos sens.</p>
+            </div>
+            <div class="footer-col">
+                <h4>BOUTIQUE</h4>
+                <li>Modèles</li>
+                <li>E-Liquides</li>
+                <li>Accessoires</li>
+            </div>
+            <div class="footer-col">
+                <h4>CONTACT</h4>
+                <li>vape@luxe.com</li>
+                <li>Paris, France</li>
+            </div>
+        </div>
+        <div class="legal">
+            <p>© 2026 VAPE LUXE | INTERDIT AUX MINEURS | LA NICOTINE ACCROÎT LA DÉPENDANCE.</p>
+        </div>
+    </footer>
+
     <div id="cart-sidebar" class="cart-sidebar">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h2>MON PANIER</h2>
+        <div class="cart-header">
+            <h2>PANIER</h2>
             <span onclick="toggleCart()" style="cursor:pointer; font-size: 2rem;">&times;</span>
         </div>
-        <div id="cart-items">
-            </div>
+        <div id="cart-items"></div>
         <div class="cart-footer">
-            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 900;">
-                <span>TOTAL :</span>
+            <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:900; margin-bottom:20px;">
+                <span>TOTAL:</span>
                 <span><span id="cart-total">0.00</span> €</span>
             </div>
-            <button class="btn-pay" onclick="goToPayment()">PASSER AU PAIEMENT</button>
+            <button class="btn" style="width:100%;" onclick="alert('Redirection vers le paiement sécurisé...')">COMMANDER</button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- 3D INTERACTIF ---
-        let scene, camera, renderer, vape;
+        let scene, camera, renderer, vape, particles = [];
         const container = document.querySelector('#container-3d');
 
         function init3D() {
@@ -124,34 +185,50 @@
             camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(container.offsetWidth, container.offsetHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
             container.appendChild(renderer.domElement);
 
-            const geometry = new THREE.CylinderGeometry(0.5, 0.5, 4, 32);
-            const material = new THREE.MeshPhongMaterial({ color: 0x333333, shininess: 100, specular: 0x00ffcc });
+            const geometry = new THREE.CylinderGeometry(0.5, 0.5, 4, 64);
+            const material = new THREE.MeshPhongMaterial({ color: 0x111111, shininess: 100, specular: 0x00ffcc });
             vape = new THREE.Mesh(geometry, material);
             scene.add(vape);
 
-            const light = new THREE.DirectionalLight(0xffffff, 1.5);
-            light.position.set(5, 5, 5);
-            scene.add(light);
-            scene.add(new THREE.AmbientLight(0x404040));
+            const light1 = new THREE.PointLight(0x00ffcc, 2.5); light1.position.set(5, 5, 5); scene.add(light1);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.3));
 
             camera.position.z = 5;
             animate();
         }
 
+        // --- ANIMATION DE VAPEUR ---
+        function createSteam() {
+            for (let i = 0; i < 25; i++) {
+                const p = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 }));
+                p.position.set(0, 2, 0);
+                p.userData = { vx: (Math.random()-0.5)*0.04, vy: Math.random()*0.07, op: 0.5 };
+                scene.add(p);
+                particles.push(p);
+            }
+        }
+
         function animate() {
             requestAnimationFrame(animate);
             if(vape) vape.rotation.y += 0.01;
+            particles.forEach((p, i) => {
+                p.position.x += p.userData.vx; p.position.y += p.userData.vy;
+                p.userData.op -= 0.005; p.material.opacity = p.userData.op;
+                p.scale.multiplyScalar(1.02);
+                if(p.userData.op <= 0) { scene.remove(p); particles.splice(i, 1); }
+            });
             renderer.render(scene, camera);
         }
 
+        container.addEventListener('mousedown', createSteam);
+
         // --- LOGIQUE PANIER ---
         let cart = [];
-
-        function toggleCart() {
-            document.getElementById('cart-sidebar').classList.toggle('open');
-        }
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
+        function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); }
 
         function addToCart(name, price) {
             cart.push({ id: Date.now(), name: name, price: price });
@@ -165,41 +242,21 @@
         }
 
         function updateCartUI() {
-            const container = document.getElementById('cart-items');
-            const countLabel = document.getElementById('cart-count');
-            const totalLabel = document.getElementById('cart-total');
-            
-            container.innerHTML = "";
+            const itemsCont = document.getElementById('cart-items');
+            itemsCont.innerHTML = "";
             let total = 0;
-
             cart.forEach(item => {
                 total += item.price;
                 const div = document.createElement('div');
                 div.className = 'cart-item';
-                div.innerHTML = `
-                    <div>
-                        <p style="font-weight:700;">${item.name}</p>
-                        <p style="color:var(--primary); font-size:0.9rem;">${item.price.toFixed(2)} €</p>
-                    </div>
-                    <button class="remove-btn" onclick="removeFromCart(${item.id})">Supprimer</button>
-                `;
-                container.appendChild(div);
+                div.innerHTML = `<div><b>${item.name}</b><br><span style="color:var(--primary)">${item.price.toFixed(2)}€</span></div>
+                                 <button class="remove-btn" onclick="removeFromCart(${item.id})">Supprimer</button>`;
+                itemsCont.appendChild(div);
             });
-
-            countLabel.innerText = cart.length;
-            totalLabel.innerText = total.toFixed(2);
+            document.getElementById('cart-total').innerText = total.toFixed(2);
+            document.getElementById('cart-count').innerText = cart.length;
         }
 
-        function goToPayment() {
-            if(cart.length === 0) {
-                alert("Votre panier est vide !");
-                return;
-            }
-            alert("Redirection sécurisée vers la plateforme de paiement Stripe / PayPal...");
-            // Ici tu pourrais mettre : window.location.href = "ta-page-de-paiement.html";
-        }
-
-        init3D();
         window.addEventListener('resize', () => {
             camera.aspect = container.offsetWidth / container.offsetHeight;
             camera.updateProjectionMatrix();
