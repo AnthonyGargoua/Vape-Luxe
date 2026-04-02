@@ -76,7 +76,6 @@
 
         /* Conteneurs 3D */
         #canvas-box { position: absolute; right: 0; top: 0; width: 55%; height: 100%; z-index: 5; pointer-events: none; }
-        #canvas-liquid { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 15; pointer-events: none; }
 
         .hero-content { z-index: 10; max-width: 600px; position: relative; }
         .hero-content h1 { font-size: clamp(3rem, 10vw, 5.5rem); line-height: 0.9; margin-bottom: 20px; }
@@ -121,7 +120,7 @@
 
         @media (max-width: 768px) {
             .hero { flex-direction: column; padding-top: 120px; text-align: center; }
-            #canvas-box, #canvas-liquid { position: relative; width: 100%; height: 400px; right: 0; left: 0; }
+            #canvas-box { position: relative; width: 100%; height: 400px; right: 0; left: 0; }
             .hero-bg-banner { width: 100%; mask-image: linear-gradient(to top, black 50%, transparent 100%); opacity: 0.05; }
             .cart-sidebar { width: 100%; }
         }
@@ -202,7 +201,6 @@
     </section>
 
     <section id="liquides" style="background: var(--card-bg); position: relative; min-height: 80vh;">
-        <div id="canvas-liquid"></div> 
         <div class="products">
             <h2 style="font-size: 3rem; margin-bottom: 50px;">Saveurs <span>Infinites</span> 🍓</h2>
             <div class="grid">
@@ -256,7 +254,7 @@
     <script>
         function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
-        function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); initLiquid3D(); }
+        function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); }
 
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
@@ -264,7 +262,6 @@
             document.getElementById('theme-icon').innerHTML = isDark ? "🌙" : "☀️";
             const color = isDark ? 0xff007a : 0x00d2ff;
             if(matBoxBody) matBoxBody.color.set(color);
-            if(matLiquid) matLiquid.color.set(color);
         }
 
         let sceneBox, camBox, rendBox, matBoxBody, groupBox;
@@ -311,63 +308,6 @@
             animateBox();
         }
 
-        // --- FLACON MODIFIÉ (DESIGN AMÉLIORÉ) ---
-        let sceneLiq, camLiq, rendLiq, matLiquid, groupLiquid;
-        function initLiquid3D() {
-            const cont = document.getElementById('canvas-liquid');
-            sceneLiq = new THREE.Scene();
-            camLiq = new THREE.PerspectiveCamera(75, cont.offsetWidth / cont.offsetHeight, 0.1, 1000);
-            rendLiq = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            rendLiq.setSize(cont.offsetWidth, cont.offsetHeight);
-            cont.appendChild(rendLiq.domElement);
-
-            groupLiquid = new THREE.Group();
-            matLiquid = new THREE.MeshPhongMaterial({ 
-                color: 0x00d2ff, 
-                transparent: true, 
-                opacity: 0.6, 
-                shininess: 150,
-                specular: 0xffffff
-            });
-            const labelMat = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.DoubleSide });
-            const darkMat = new THREE.MeshPhongMaterial({ color: 0x111111 });
-
-            // 1. Corps du flacon (forme cylindrique élégante)
-            const bottleGeom = new THREE.CylinderGeometry(1.2, 1.2, 3.8, 32);
-            const bottle = new THREE.Mesh(bottleGeom, matLiquid);
-            
-            // 2. Étiquette (plus fine, entourant le flacon)
-            const labelGeom = new THREE.CylinderGeometry(1.22, 1.22, 2.2, 32, 1, true, 0, Math.PI * 1.6);
-            const label = new THREE.Mesh(labelGeom, labelMat);
-            label.rotation.y = Math.PI * 0.2;
-
-            // 3. Col du flacon
-            const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.9, 0.6, 32), matLiquid);
-            neck.position.y = 2.2;
-
-            // 4. Bouchon de sécurité (avec texture simulant des stries)
-            const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 0.9, 32), darkMat);
-            cap.position.y = 2.8;
-
-            // 5. Pipette ou Embout
-            const topTip = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.4, 16), darkMat);
-            topTip.position.y = 3.4;
-
-            groupLiquid.add(bottle, label, neck, cap, topTip);
-            
-            groupLiquid.position.set(-2, 0, 0); 
-            sceneLiq.add(groupLiquid);
-
-            const light1 = new THREE.PointLight(0xffffff, 2);
-            light1.position.set(5, 5, 5);
-            const light2 = new THREE.PointLight(0xffffff, 1);
-            light2.position.set(-5, -5, 2);
-            sceneLiq.add(light1, light2, new THREE.AmbientLight(0xffffff, 0.6));
-            
-            camLiq.position.z = 7;
-            animateLiquid();
-        }
-
         function animateBox() {
             requestAnimationFrame(animateBox);
             if(groupBox) {
@@ -375,15 +315,6 @@
                 groupBox.position.y = Math.sin(Date.now()*0.0015)*0.15;
             }
             rendBox.render(sceneBox, camBox);
-        }
-
-        function animateLiquid() {
-            requestAnimationFrame(animateLiquid);
-            if(groupLiquid) {
-                groupLiquid.rotation.y += 0.012;
-                groupLiquid.position.y = Math.cos(Date.now()*0.001)*0.25;
-            }
-            rendLiq.render(sceneLiq, camLiq);
         }
 
         let cart = [];
@@ -412,8 +343,6 @@
         window.addEventListener('resize', () => {
             const c1 = document.getElementById('canvas-box');
             if(c1 && camBox && rendBox) { camBox.aspect = c1.offsetWidth / c1.offsetHeight; camBox.updateProjectionMatrix(); rendBox.setSize(c1.offsetWidth, c1.offsetHeight); }
-            const c2 = document.getElementById('canvas-liquid');
-            if(c2 && camLiq && rendLiq) { camLiq.aspect = c2.offsetWidth / c2.offsetHeight; camLiq.updateProjectionMatrix(); rendLiq.setSize(c2.offsetWidth, c2.offsetHeight); }
         });
     </script>
 </body>
