@@ -3,84 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VAPE LUXE | Le futur de la vape est entre vos mains !</title>
+    <title>VAPE LUXE | Premium Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f0f5f2;
-            --text: #1a2b26;
-            --accent: #00d2ff;
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --glass: blur(15px);
+            --bg: #f0f5f2; --text: #1a2b26; --accent: #00d2ff;
+            --card-bg: rgba(255, 255, 255, 0.7); --glass: blur(15px);
             --grad: linear-gradient(135deg, #00d2ff 0%, #3aef9b 100%);
             --border: rgba(0, 0, 0, 0.08);
         }
-
         .dark-mode {
-            --bg: #05010a;
-            --text: #ffffff;
-            --accent: #ff007a;
+            --bg: #05010a; --text: #ffffff; --accent: #ff007a;
             --card-bg: rgba(20, 10, 30, 0.5);
             --grad: linear-gradient(135deg, #7000ff 0%, #ff007a 50%, #ff4d4d 100%);
             --border: rgba(255, 255, 255, 0.1);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: background 0.4s, color 0.4s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: background 0.4s; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* NAVIGATION */
-        nav { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px 5%; position: fixed; width: 100%; z-index: 1000;
-            background: rgba(255,255,255,0.05); backdrop-filter: var(--glass);
-            border-bottom: 1px solid var(--border);
-        }
+        /* NAV */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; position: fixed; width: 100%; z-index: 1000; background: rgba(255,255,255,0.05); backdrop-filter: var(--glass); border-bottom: 1px solid var(--border); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.9rem; opacity: 0.8; }
-        .logo { font-size: 1.8rem; font-weight: 700; text-decoration: none; color: var(--text); z-index: 1001; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.9rem; }
+        .logo { font-size: 1.8rem; font-weight: 700; text-decoration: none; color: var(--text); }
         .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-btns { display: flex; align-items: center; gap: 15px; z-index: 1001; }
-        .theme-toggle { cursor: pointer; font-size: 1.2rem; background: var(--card-bg); border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; color: var(--text); }
-        .btn-cart { background: var(--grad); border: none; padding: 10px 18px; border-radius: 12px; font-weight: 700; color: white; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .nav-btns { display: flex; align-items: center; gap: 15px; }
+        .theme-toggle { cursor: pointer; background: var(--card-bg); border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; color: var(--text); }
+        .btn-cart { background: var(--grad); border: none; padding: 10px 18px; border-radius: 12px; font-weight: 700; color: white; cursor: pointer; }
 
-        .burger { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
-        .burger div { width: 28px; height: 3px; background: var(--text); border-radius: 5px; }
-
-        @media (max-width: 900px) {
-            .nav-links { position: fixed; right: -100%; top: 0; height: 100vh; width: 80%; background: var(--bg); flex-direction: column; justify-content: center; align-items: center; z-index: 999; }
-            .nav-links.active { right: 0; }
-            .burger { display: flex; z-index: 1001; }
-        }
-
-        /* SECTIONS */
+        /* HERO & 3D CONTAINERS */
         .hero { height: 100vh; display: flex; align-items: center; padding: 0 10%; position: relative; overflow: hidden; }
-        .hero-bg-banner { position: absolute; top: 0; right: 0; width: 60%; height: 100%; background: url('https://images.unsplash.com/photo-1559819614-81fea9efd090?q=80&w=1600') center/cover; mask-image: linear-gradient(to left, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to left, black 40%, transparent 100%); opacity: 0.15; z-index: 1; }
+        #canvas-box, #canvas-liquid { position: absolute; right: 0; width: 55%; height: 100%; z-index: 5; pointer-events: none; }
         .hero-content { z-index: 10; max-width: 600px; }
-        #canvas-container, #liquid-canvas { position: absolute; right: -5%; width: 60%; height: 100%; z-index: 5; }
 
-        /* PRODUITS */
-        .products { padding: 100px 10%; }
+        /* PRODUCTS */
+        .products { padding: 100px 10%; position: relative; z-index: 10; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .card { background: var(--card-bg); border-radius: 24px; padding: 20px; border: 1px solid var(--border); backdrop-filter: var(--glass); text-align: center; }
-        .card img { width: 100%; height: 250px; object-fit: cover; border-radius: 18px; margin-bottom: 20px; }
-        .price { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        .card img { width: 100%; height: 250px; object-fit: cover; border-radius: 18px; }
+        .price { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-top: 10px; }
         .btn-add { width: 100%; padding: 12px; border-radius: 12px; border: 2px solid var(--accent); background: transparent; color: var(--text); font-weight: 700; cursor: pointer; margin-top: 15px; }
         .btn-add:hover { background: var(--grad); color: white; border-color: transparent; }
 
-        /* PANIER & SUPPRESSION */
+        /* PANIER */
         .cart-sidebar { position: fixed; right: -100%; top: 0; width: 400px; height: 100%; background: var(--bg); border-left: 1px solid var(--border); z-index: 2000; padding: 40px; transition: 0.5s; }
         .cart-sidebar.open { right: 0; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 15px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
-        .remove-item { background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 1.2rem; padding: 5px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 15px; background: var(--card-bg); border-radius: 15px; }
+        .remove-item { background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 1.2rem; }
 
-        /* PAGE DE PAIEMENT (MODAL) */
+        /* MODAL PAIEMENT */
         .checkout-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-        .checkout-content { background: var(--bg); padding: 40px; border-radius: 30px; width: 90%; max-width: 500px; border: 1px solid var(--accent); position: relative; }
+        .checkout-content { background: var(--bg); padding: 40px; border-radius: 30px; width: 90%; max-width: 500px; border: 1px solid var(--accent); }
         .checkout-content input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); }
-
-        .main-btn { padding: 15px 40px; border-radius: 50px; border: none; background: var(--grad); color: white; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+        
+        .main-btn { padding: 15px 40px; border-radius: 50px; border: none; background: var(--grad); color: white; font-weight: 700; cursor: pointer; }
         .age-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; }
-        .age-gate.hidden { transform: translateY(-100%); transition: 0.8s; }
+        .age-gate.hidden { display: none; }
     </style>
 </head>
 <body>
@@ -88,34 +66,26 @@
     <div id="age-gate" class="age-gate">
         <div style="text-align:center;">
             <h1>VAPE<span>LUXE</span></h1>
-            <p style="margin-bottom: 30px;">🔞 ACCÈS RÉSERVÉ AUX MAJEURS</p>
-            <button class="main-btn" onclick="verifyAge()">J'AI + DE 18 ANS</button>
+            <button class="main-btn" onclick="verifyAge()" style="margin-top: 20px;">ENTRER (+18 ANS)</button>
         </div>
     </div>
 
     <div id="checkout-modal" class="checkout-modal">
         <div class="checkout-content">
-            <h2 style="margin-bottom: 20px;">PAIEMENT SÉCURISÉ 🔒</h2>
-            <p>Total à régler : <span id="checkout-total" style="color: var(--accent); font-weight: 700;">0€</span></p>
-            <input type="text" placeholder="Nom sur la carte">
-            <input type="text" placeholder="Numéro de carte (16 chiffres)">
-            <div style="display: flex; gap: 10px;">
-                <input type="text" placeholder="MM/AA">
-                <input type="text" placeholder="CVC">
-            </div>
-            <button class="main-btn" style="width: 100%; margin-top: 20px;" onclick="processPayment()">PAYER MAINTENANT</button>
-            <button onclick="closeCheckout()" style="background: none; border: none; color: var(--text); cursor: pointer; width: 100%; margin-top: 15px; opacity: 0.5;">Annuler</button>
+            <h2>PAIEMENT 🔒</h2>
+            <p>Total : <span id="checkout-total">0€</span></p>
+            <input type="text" placeholder="Numéro de Carte">
+            <button class="main-btn" style="width:100%" onclick="processPayment()">PAYER MAINTENANT</button>
+            <button onclick="closeCheckout()" style="width:100%; background:none; border:none; margin-top:10px; color:var(--text); cursor:pointer;">Annuler</button>
         </div>
     </div>
 
     <nav>
-        <div class="burger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
         <a href="#" class="logo">VAPE<span>LUXE</span></a>
-        <ul class="nav-links" id="navLinks">
+        <ul class="nav-links">
             <li><a href="#home">ACCUEIL</a></li>
-            <li><a href="#shop">BOUTIQUE</a></li>
+            <li><a href="#shop">HARDWARE</a></li>
             <li><a href="#liquides">E-LIQUIDES</a></li>
-            <li><a href="#">DISCORD</a></li>
         </ul>
         <div class="nav-btns">
             <button class="theme-toggle" onclick="toggleTheme()" id="theme-icon">☀️</button>
@@ -124,138 +94,142 @@
     </nav>
 
     <section class="hero" id="home">
-        <div class="hero-bg-banner"></div>
         <div class="hero-content">
-            <h1>Good<br>Vibes <span>Only</span></h1>
-            <p>Le futur de la vape premium est ici.</p><br>
-            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Shop now</button>
+            <h1>Box Semi-Meca<br><span>Edition Luxe</span></h1>
+            <p>Puissance brute, design raffiné.</p><br>
+            <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Découvrir</button>
         </div>
-        <div id="canvas-container"></div>
+        <div id="canvas-box"></div>
     </section>
 
     <section class="products" id="shop">
-        <h2 style="margin-bottom: 40px;">Hardware ⚡</h2>
+        <h2>Hardware 🔥</h2>
         <div class="grid">
             <div class="card">
                 <img src="https://www.gfc-provap.com/143533-thickbox/mod-blaster-2170018650-bd-vape.jpg">
-                <h3>Mod Blaster BD Vape</h3>
-                <p class="price">50€</p>
+                <h3>Mod Blaster</h3><p class="price">50€</p>
                 <button class="btn-add" onclick="addToCart('Mod Blaster', 50)">Ajouter 🛒</button>
             </div>
             <div class="card">
                 <img src="https://www.promovap.com/10492-large_default/dead-rabbit-v3-rta-joker-edition-hellvape.jpg">
-                <h3>Dead Rabbit 3</h3>
-                <p class="price">35€</p>
+                <h3>Dead Rabbit 3</h3><p class="price">35€</p>
                 <button class="btn-add" onclick="addToCart('Dead Rabbit', 35)">Ajouter 🛒</button>
             </div>
         </div>
     </section>
 
-    <section id="liquides" style="background: var(--card-bg); padding: 100px 10%;">
-        <h2>Saveurs 🍓</h2>
-        <div class="grid" style="margin-top: 40px;">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600">
-                <h3>ICE BERRY 🧊</h3>
-                <p class="price">15€</p>
-                <button class="btn-add" onclick="addToCart('Ice Berry', 15)">Ajouter 🛒</button>
+    <section id="liquides" style="position:relative; min-height:80vh;">
+        <div id="canvas-liquid"></div>
+        <div class="products">
+            <h2 style="margin-bottom:40px;">E-Liquides 🍓</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600">
+                    <h3>ICE BERRY 🧊</h3><p class="price">15€</p>
+                    <button class="btn-add" onclick="addToCart('Ice Berry', 15)">Ajouter 🛒</button>
+                </div>
             </div>
         </div>
     </section>
 
     <div id="cart-sidebar" class="cart-sidebar">
-        <h2 style="margin-bottom: 30px;">PANIER 🛍️</h2>
-        <div id="cart-items" style="max-height: 60vh; overflow-y: auto;"></div>
-        <div style="position: absolute; bottom: 40px; left: 40px; right: 40px;">
-            <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:700;">
-                <span>TOTAL</span><span id="cart-total">0.00€</span>
-            </div>
+        <h2>PANIER 🛍️</h2>
+        <div id="cart-items" style="margin-top:20px;"></div>
+        <div style="position:absolute; bottom:40px; width:320px;">
+            <div style="display:flex; justify-content:space-between; font-weight:700;"><span>TOTAL</span><span id="cart-total">0€</span></div>
             <button class="main-btn" style="width:100%; margin-top:20px;" onclick="openCheckout()">COMMANDER ✅</button>
-            <button onclick="toggleCart()" style="width: 100%; margin-top: 10px; background: none; border: none; cursor: pointer;">Fermer</button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         let cart = [];
+        let sceneBox, sceneLiq, camBox, camLiq, rendBox, rendLiq, boxGroup, liqGroup, matAccent;
 
-        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
-        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
         function verifyAge() { document.getElementById('age-gate').classList.add('hidden'); init3D(); }
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
 
-        // GESTION DU PANIER
-        function addToCart(n, p) {
-            cart.push({id: Date.now(), n, p});
-            updateCart();
-            if(!document.getElementById('cart-sidebar').classList.contains('open')) toggleCart();
+        // --- 3D HOME (BOX SEMI-MECA) ---
+        function init3D() {
+            const cBox = document.getElementById('canvas-box');
+            sceneBox = new THREE.Scene();
+            camBox = new THREE.PerspectiveCamera(75, cBox.offsetWidth/cBox.offsetHeight, 0.1, 1000);
+            rendBox = new THREE.WebGLRenderer({antialias:true, alpha:true});
+            rendBox.setSize(cBox.offsetWidth, cBox.offsetHeight);
+            cBox.appendChild(rendBox.domElement);
+
+            boxGroup = new THREE.Group();
+            matAccent = new THREE.MeshPhongMaterial({color: 0x00d2ff, shininess: 100});
+            
+            // Corps de la Box
+            const body = new THREE.Mesh(new THREE.BoxGeometry(2, 3.5, 1), matAccent);
+            // Atomiseur
+            const ato = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 1.2, 32), new THREE.MeshPhongMaterial({color:0x555555}));
+            ato.position.y = 2.3;
+            // Bouton Switch
+            const btn = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.2, 32), new THREE.MeshPhongMaterial({color:0xffffff}));
+            btn.rotation.z = Math.PI/2; btn.position.set(1, 1, 0);
+            
+            boxGroup.add(body, ato, btn);
+            sceneBox.add(boxGroup);
+            sceneBox.add(new THREE.PointLight(0xffffff, 2).set(5,5,5), new THREE.AmbientLight(0xffffff, 0.6));
+            camBox.position.z = 6;
+
+            initLiquid3D();
+            animate();
         }
 
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCart();
+        // --- 3D LIQUIDE (FLACON) ---
+        function initLiquid3D() {
+            const cLiq = document.getElementById('canvas-liquid');
+            sceneLiq = new THREE.Scene();
+            camLiq = new THREE.PerspectiveCamera(75, cLiq.offsetWidth/cLiq.offsetHeight, 0.1, 1000);
+            rendLiq = new THREE.WebGLRenderer({antialias:true, alpha:true});
+            rendLiq.setSize(cLiq.offsetWidth, cLiq.offsetHeight);
+            cLiq.appendChild(rendLiq.domElement);
+
+            liqGroup = new THREE.Group();
+            const bottle = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 2.5, 32), matAccent);
+            const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.8, 0.8, 32), new THREE.MeshPhongMaterial({color:0x333333}));
+            cap.position.y = 1.6;
+            
+            liqGroup.add(bottle, cap);
+            sceneLiq.add(liqGroup);
+            sceneLiq.add(new THREE.PointLight(0xffffff, 2).set(-5,5,5), new THREE.AmbientLight(0xffffff, 0.6));
+            camLiq.position.z = 5;
         }
 
+        function animate() {
+            requestAnimationFrame(animate);
+            if(boxGroup) { boxGroup.rotation.y += 0.01; boxGroup.position.y = Math.sin(Date.now()*0.002)*0.2; }
+            if(liqGroup) { liqGroup.rotation.y -= 0.015; liqGroup.rotation.x = 0.2; }
+            rendBox.render(sceneBox, camBox);
+            rendLiq.render(sceneLiq, camLiq);
+        }
+
+        // --- PANIER & UI ---
+        function addToCart(n, p) { cart.push({id:Date.now(), n, p}); updateCart(); toggleCart(); }
+        function removeFromCart(id) { cart = cart.filter(i => i.id !== id); updateCart(); }
         function updateCart() {
             const items = document.getElementById('cart-items');
             items.innerHTML = ""; let t = 0;
             cart.forEach(i => {
                 t += i.p;
-                items.innerHTML += `
-                    <div class="cart-item">
-                        <div><b>${i.n}</b><br>${i.p}€</div>
-                        <button class="remove-item" onclick="removeFromCart(${i.id})">🗑️</button>
-                    </div>`;
+                items.innerHTML += `<div class="cart-item"><div>${i.n} - ${i.p}€</div><button class="remove-item" onclick="removeFromCart(${i.id})">🗑️</button></div>`;
             });
-            document.getElementById('cart-total').innerText = t.toFixed(2) + "€";
+            document.getElementById('cart-total').innerText = t + "€";
             document.getElementById('cart-count').innerText = cart.length;
         }
 
-        // GESTION DU PAIEMENT
-        function openCheckout() {
-            if(cart.length === 0) return alert("Votre panier est vide !");
-            document.getElementById('checkout-total').innerText = document.getElementById('cart-total').innerText;
-            document.getElementById('checkout-modal').style.display = 'flex';
-        }
-
-        function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
-
-        function processPayment() {
-            alert("Paiement accepté ! Merci de votre confiance chez VAPE LUXE 🚀");
-            cart = [];
-            updateCart();
-            closeCheckout();
-            toggleCart();
-        }
+        function openCheckout() { if(cart.length>0) { document.getElementById('checkout-total').innerText = document.getElementById('cart-total').innerText; document.getElementById('checkout-modal').style.display='flex'; }}
+        function closeCheckout() { document.getElementById('checkout-modal').style.display='none'; }
+        function processPayment() { alert("Merci ! Commande validée 🚀"); cart=[]; updateCart(); closeCheckout(); }
 
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             document.getElementById('theme-icon').innerHTML = isDark ? "🌙" : "☀️";
-            if(vapeMat) vapeMat.color.set(isDark ? 0x7000ff : 0x00d2ff);
-        }
-
-        // 3D
-        let scene, camera, renderer, vapeMat, vapeGroup;
-        function init3D() {
-            const cont = document.getElementById('canvas-container');
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, cont.offsetWidth / cont.offsetHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(cont.offsetWidth, cont.offsetHeight);
-            cont.appendChild(renderer.domElement);
-            vapeGroup = new THREE.Group();
-            vapeMat = new THREE.MeshPhongMaterial({ color: 0x00d2ff, shininess: 100 });
-            vapeGroup.add(new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.6, 4, 32), vapeMat));
-            scene.add(vapeGroup);
-            scene.add(new THREE.PointLight(0xffffff, 2).set(5, 5, 5));
-            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-            camera.position.z = 6;
-            animate();
-        }
-        function animate() {
-            requestAnimationFrame(animate);
-            if(vapeGroup) vapeGroup.rotation.y += 0.01;
-            renderer.render(scene, camera);
+            if(matAccent) matAccent.color.set(isDark ? 0xff007a : 0x00d2ff);
         }
     </script>
 </body>
