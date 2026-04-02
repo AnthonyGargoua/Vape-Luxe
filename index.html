@@ -7,103 +7,110 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Mode Sombre par défaut */
+            /* MODE CLAIR PAR DÉFAUT (Inversé comme demandé) */
+            --bg: #f0f2f5;
+            --text: #1a1a1a;
+            --accent: #7000ff;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --glass: blur(15px);
+            --grad: linear-gradient(135deg, #7000ff 0%, #ff007a 100%);
+            --border: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
             --bg: #050505;
             --text: #ffffff;
             --accent: #00f2ff;
             --card-bg: rgba(255, 255, 255, 0.05);
-            --glass: blur(15px);
             --grad: linear-gradient(135deg, #00f2ff 0%, #7000ff 100%);
-        }
-
-        .light-mode {
-            --bg: #f0f2f5;
-            --text: #1a1a1a;
-            --accent: #7000ff;
-            --card-bg: rgba(0, 0, 0, 0.03);
-            --grad: linear-gradient(135deg, #7000ff 0%, #ff007a 100%);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; transition: background 0.4s, color 0.4s; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* NAVIGATION DESIGN */
+        /* NAVIGATION */
         nav { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 20px 5%; position: fixed; width: 100%; z-index: 1000;
-            background: rgba(255,255,255,0.01); backdrop-filter: var(--glass);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.1); backdrop-filter: var(--glass);
+            border-bottom: 1px solid var(--border);
         }
-        .logo { font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; }
+        .logo { font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; text-decoration: none; color: var(--text); }
         .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .nav-btns { display: flex; align-items: center; gap: 20px; }
-        .theme-toggle { cursor: pointer; font-size: 1.2rem; background: var(--card-bg); border: none; padding: 10px; border-radius: 50%; color: var(--text); }
-        .btn-cart { background: var(--grad); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 700; color: white; cursor: pointer; }
+        .nav-btns { display: flex; align-items: center; gap: 15px; }
+        .theme-toggle { cursor: pointer; font-size: 1.2rem; background: var(--card-bg); border: 1px solid var(--border); padding: 8px 12px; border-radius: 12px; color: var(--text); display: flex; align-items: center; gap: 5px; }
+        .btn-cart { background: var(--grad); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 700; color: white; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
 
-        /* HERO SECTION */
+        /* HERO & BANNER */
         .hero { 
             height: 100vh; display: flex; align-items: center; justify-content: space-between; 
             padding: 0 10%; position: relative; overflow: hidden;
         }
+        /* BANNIÈRE DERRIÈRE LA 3D */
+        .hero-bg-banner {
+            position: absolute; top: 0; right: 0; width: 60%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1559819614-81fea9efd090?q=80&w=1600') center/cover;
+            mask-image: linear-gradient(to left, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 50%, transparent 100%);
+            opacity: 0.15; z-index: 1; pointer-events: none;
+        }
         .hero-content { z-index: 10; max-width: 600px; }
-        .hero-content h1 { font-size: clamp(3rem, 10vw, 6rem); line-height: 0.9; margin-bottom: 20px; }
-        .hero-content p { font-size: 1.2rem; opacity: 0.7; margin-bottom: 30px; }
+        .hero-content h1 { font-size: clamp(3rem, 10vw, 5.5rem); line-height: 0.9; margin-bottom: 20px; }
         
         #canvas-container { position: absolute; right: -5%; width: 60%; height: 100%; cursor: pointer; z-index: 5; }
 
-        /* BOUTONS STYLE JEUNE */
+        /* BOUTONS */
         .main-btn { 
             padding: 15px 40px; border-radius: 50px; border: none; 
             background: var(--grad); color: white; font-weight: 700; 
-            text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
-        .main-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 30px rgba(0,242,255,0.4); }
+        .main-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(112, 0, 255, 0.3); }
 
-        /* PRODUITS DYNAMIQUES */
+        /* PRODUITS */
         .products { padding: 100px 10%; }
-        .section-header { margin-bottom: 60px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        
         .card { 
             background: var(--card-bg); border-radius: 24px; padding: 20px; 
-            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: var(--glass);
-            position: relative; overflow: hidden;
+            border: 1px solid var(--border); backdrop-filter: var(--glass);
+            position: relative; transition: 0.4s;
         }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
         .card img { width: 100%; height: 280px; object-fit: cover; border-radius: 18px; margin-bottom: 20px; }
-        .card h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .card .price { font-size: 1.8rem; font-weight: 700; color: var(--accent); margin-bottom: 20px; }
-        .btn-add { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--accent); background: transparent; color: var(--text); font-weight: 700; cursor: pointer; }
-        .btn-add:hover { background: var(--accent); color: #000; }
+        .price { font-size: 1.8rem; font-weight: 700; color: var(--accent); margin-bottom: 20px; }
+        .btn-add { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: transparent; color: var(--text); font-weight: 700; cursor: pointer; }
+        .btn-add:hover { background: var(--accent); color: white; }
 
-        /* PANIER MODERNE */
+        /* PANIER SIDEBAR */
         .cart-sidebar { 
             position: fixed; right: -100%; top: 0; width: 400px; height: 100%; 
-            background: var(--bg); border-left: 1px solid rgba(255,255,255,0.1); 
+            background: var(--bg); border-left: 1px solid var(--border); 
             z-index: 2000; padding: 40px; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            display: flex; flex-direction: column;
+            display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
         }
         .cart-sidebar.open { right: 0; }
-        .cart-item { display: flex; justify-content: space-between; margin-bottom: 20px; padding: 15px; background: var(--card-bg); border-radius: 12px; }
-        .remove-btn { color: #ff3b3b; cursor: pointer; border: none; background: none; font-weight: 700; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 20px; padding: 15px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); }
+        .remove-btn { color: #ff3b3b; cursor: pointer; border: none; background: none; font-weight: 700; font-size: 0.8rem; }
 
-        /* FOOTER JEUNE */
+        /* FOOTER */
         footer { 
-            padding: 100px 10% 40px; background: var(--card-bg); margin-top: 100px;
+            padding: 80px 10% 40px; background: var(--card-bg); border-top: 1px solid var(--border);
             border-top-left-radius: 50px; border-top-right-radius: 50px;
         }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; margin-bottom: 50px; }
-        .footer-link { list-style: none; margin-top: 15px; opacity: 0.6; cursor: pointer; transition: 0.3s; }
-        .footer-link:hover { opacity: 1; color: var(--accent); padding-left: 10px; }
+        .footer-link { display: block; margin-top: 15px; opacity: 0.6; cursor: pointer; text-decoration: none; color: var(--text); font-weight: 500; }
+        .footer-link:hover { opacity: 1; color: var(--accent); transform: translateX(5px); }
 
-        /* AGE GATE DESIGN */
+        /* AGE GATE */
         .age-gate { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; }
         .age-gate.hidden { transform: translateY(-100%); transition: 0.8s cubic-bezier(0.8, 0, 0.2, 1); }
 
         @media (max-width: 768px) {
             .hero { flex-direction: column; padding-top: 120px; text-align: center; }
-            #canvas-container { position: relative; width: 100%; height: 400px; right: 0; }
+            #canvas-container { position: relative; width: 100%; height: 350px; right: 0; }
             .cart-sidebar { width: 100%; }
         }
     </style>
@@ -113,23 +120,25 @@
     <div id="age-gate" class="age-gate">
         <div style="text-align:center;">
             <h1 style="font-size: 4rem;">VAPE<span>LUXE</span></h1>
-            <p style="margin-bottom: 30px;">T'AS PLUS DE 18 ANS ?</p>
-            <button class="main-btn" onclick="verifyAge()">BIEN SÛR</button>
+            <p style="margin-bottom: 30px; letter-spacing: 2px;">🔞 ACCÈS RÉSERVÉ AUX ADULTES</p>
+            <button class="main-btn" onclick="verifyAge()">J'AI + DE 18 ANS</button>
         </div>
     </div>
 
     <nav>
         <a href="#" class="logo">VAPE<span>LUXE</span></a>
         <div class="nav-btns">
-            <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
-            <div class="btn-cart" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+            <button class="theme-toggle" onclick="toggleTheme()" id="theme-icon">☀️ Mode</button>
+            <div class="btn-cart" onclick="toggleCart()">
+                <span>🛒</span> <span id="cart-count">0</span>
+            </div>
         </div>
     </nav>
 
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Bonnes<br>énergies</h1>
-            <p>Découvrez LE site qu'il vous faut, nous regroupons tous les bestsellers des plus grandes marques de Vape</p>
+        <div class="hero-bg-banner"></div> <div class="hero-content">
+            <h1 id="hero-title">Bonnes<br>énergies ⚡</h1>
+            <p>Découvrez LE site qu'il vous faut, nous regroupons tous les bestsellers des plus grandes marques de Vape.</p>
             <button class="main-btn" onclick="document.getElementById('shop').scrollIntoView()">Acheter maintenant</button>
         </div>
         <div id="canvas-container"></div>
@@ -137,42 +146,42 @@
 
     <section class="products" id="shop">
         <div class="section-header">
-            <h2 style="font-size: 3rem;">Nouveauté <span>maintenant disponible</span></h2>
+            <h2 style="font-size: 3rem;">Nouveautés <span>disponibles</span> 🔥</h2>
         </div>
         <div class="grid">
             <div class="card">
-                <img src="https://www.gfc-provap.com/143533-thickbox/mod-blaster-2170018650-bd-vape.jpg" alt="Pod">
+                <img src="https://www.gfc-provap.com/143533-thickbox/mod-blaster-2170018650-bd-vape.jpg" alt="Mod Blaster">
                 <h3>Mod Blaster BD Vape</h3>
                 <p class="price">50€</p>
-                <button class="btn-add" onclick="addToCart('Mod Blaster BD Vape', 50.00)">AJOUTER</button>
+                <button class="btn-add" onclick="addToCart('Mod Blaster BD Vape', 50.00)">AJOUTER 🛒</button>
             </div>
             <div class="card">
-                <img src="https://www.promovap.com/10492-large_default/dead-rabbit-v3-rta-joker-edition-hellvape.jpg" alt="Vape">
-                <h3>Clearomiseur - Dead Rabbit 3 RTA Edition Joker</h3>
+                <img src="https://www.promovap.com/10492-large_default/dead-rabbit-v3-rta-joker-edition-hellvape.jpg" alt="Dead Rabbit">
+                <h3>Dead Rabbit 3 - Joker Edition</h3>
                 <p class="price">35€</p>
-                <button class="btn-add" onclick="addToCart('Clearomiseur - Dead Rabbit 3 RTA Edition Joker', 35.00)">AJOUTER</button>
+                <button class="btn-add" onclick="addToCart('Dead Rabbit 3 Joker', 35.00)">AJOUTER 🛒</button>
             </div>
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600" alt="Liquid">
-                <h3>ICE BERRY FLAVOR</h3>
+                <h3>ICE BERRY FLAVOR 🧊</h3>
                 <p class="price">15.00€</p>
-                <button class="btn-add" onclick="addToCart('ICE BERRY', 15.00)">AJOUTER</button>
+                <button class="btn-add" onclick="addToCart('ICE BERRY', 15.00)">AJOUTER 🛒</button>
             </div>
         </div>
     </section>
 
     <div id="cart-sidebar" class="cart-sidebar">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
-            <h2>VOTRE BAG</h2>
-            <button onclick="toggleCart()" style="background:none; border:none; color:var(--text); font-size:2rem;">&times;</button>
+            <h2>VOTRE PANIER 🛍️</h2>
+            <button onclick="toggleCart()" style="background:none; border:none; color:var(--text); font-size:2rem; cursor:pointer;">&times;</button>
         </div>
         <div id="cart-items" style="flex-grow:1; overflow-y:auto;"></div>
-        <div style="padding-top:20px; border-top:1px solid rgba(255,255,255,0.1);">
+        <div style="padding-top:20px; border-top:2px solid var(--border);">
             <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:700;">
                 <span>TOTAL</span>
                 <span id="cart-total">0.00€</span>
             </div>
-            <button class="main-btn" style="width:100%; margin-top:20px;" onclick="alert('Checkout Ready!')">PAYER</button>
+            <button class="main-btn" style="width:100%; margin-top:20px;" onclick="alert('Redirection paiement...')">PASSER AU PAIEMENT ✅</button>
         </div>
     </div>
 
@@ -180,35 +189,36 @@
         <div class="footer-content">
             <div>
                 <h3 class="logo">VAPE<span>LUXE</span></h3>
-                <p style="margin-top:20px; opacity:0.6;">Designed for the next generation.</p>
+                <p style="margin-top:20px; opacity:0.6;">Designed for the next generation. 🚀</p>
             </div>
             <div>
-                <h4>SHOP</h4>
-                <div class="footer-link">Modèles</div>
-                <div class="footer-link">Liquides</div>
-                <div class="footer-link">Merch</div>
+                <h4>EXPLORER</h4>
+                <a href="#home" class="footer-link">Accueil</a>
+                <a href="#shop" class="footer-link">Modèles & Mods</a>
+                <a href="#shop" class="footer-link">E-Liquides</a>
             </div>
             <div>
-                <h4>REJOINS NOUS</h4>
-                <div class="footer-link">Instagram</div>
-                <div class="footer-link">TikTok</div>
-                <div class="footer-link">Discord</div>
+                <h4>REJOINS NOUS 💬</h4>
+                <a href="https://instagram.com" target="_blank" class="footer-link">Instagram</a>
+                <a href="https://tiktok.com" target="_blank" class="footer-link">TikTok</a>
+                <a href="https://discord.com" target="_blank" class="footer-link">Discord</a>
             </div>
         </div>
-        <p style="text-align:center; opacity:0.3; font-size:0.8rem;">© 2026 VAPE LUXE - INTERDIT AUX MINEURS. BE SAFE.</p>
+        <p style="text-align:center; opacity:0.3; font-size:0.8rem; border-top: 1px solid var(--border); padding-top: 20px;">© 2026 VAPE LUXE - INTERDIT AUX MINEURS. BE SAFE. 🔞</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- THEME TOGGLE ---
+        // --- THEME TOGGLE (Modifié pour Light par défaut) ---
         function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            const isLight = document.body.classList.contains('light-mode');
-            vapeMaterial.color.set(isLight ? 0x7000ff : 0x00f2ff);
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('theme-icon').innerHTML = isDark ? "🌙 Mode" : "☀️ Mode";
+            if(vapeMaterial) vapeMaterial.color.set(isDark ? 0x00f2ff : 0x7000ff);
         }
 
         // --- 3D INTERACTIVE ---
-        let scene, camera, renderer, vape, vapeMaterial, particles = [];
+        let scene, camera, renderer, vape, vapeMaterial, vapeGroup, particles = [];
         const container = document.getElementById('canvas-container');
 
         function init3D() {
@@ -219,10 +229,10 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             container.appendChild(renderer.domElement);
 
-            // Vape Design Futuriste
             const group = new THREE.Group();
             const bodyGeom = new THREE.CylinderGeometry(0.5, 0.7, 4, 32);
-            vapeMaterial = new THREE.MeshPhongMaterial({ color: 0x00f2ff, shininess: 100, transparent: true, opacity: 0.9 });
+            // Couleur initiale basée sur le mode clair (violet)
+            vapeMaterial = new THREE.MeshPhongMaterial({ color: 0x7000ff, shininess: 100, transparent: true, opacity: 0.9 });
             vape = new THREE.Mesh(bodyGeom, vapeMaterial);
             
             const ringGeom = new THREE.TorusGeometry(0.6, 0.05, 16, 100);
@@ -233,7 +243,7 @@
             group.add(vape);
             group.add(ring);
             scene.add(group);
-            this.vapeGroup = group;
+            vapeGroup = group;
 
             const light = new THREE.PointLight(0xffffff, 2);
             light.position.set(5, 5, 5);
@@ -294,7 +304,7 @@
                 cont.innerHTML += `
                     <div class="cart-item">
                         <div><b>${item.name}</b><br>${item.price}€</div>
-                        <button class="remove-btn" onclick="removeFromCart(${item.id})">REMOVE</button>
+                        <button class="remove-btn" onclick="removeFromCart(${item.id})">SUPPRIMER 🗑️</button>
                     </div>`;
             });
             document.getElementById('cart-total').innerText = total.toFixed(2) + "€";
